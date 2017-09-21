@@ -11,4 +11,4 @@
 [Portfolio](https://moodle.ciencias.ulisboa.pt/mod/page/view.php?id=7488)
 
 ## To do list
-Escolher uma das duas opções de projetos
++ Escolher uma das duas opções de projetos
