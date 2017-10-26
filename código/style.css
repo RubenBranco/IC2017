@@ -1,0 +1,5 @@
+@keyframes border-pulse {
+    0% {border-color: rgba(255, 0, 0, 1)}
+    50% {border-color: rgba(255, 0, 0, 0)}
+    100% {border-color: rgba(255, 0, 0, 1)}
+}
