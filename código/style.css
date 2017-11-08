@@ -26,13 +26,14 @@ header{
 }
 
 .divisions {
-    margin-top:7%;
+    margin-top:6%;
 }
 
 .divisions img{
     height:150px;
     width:150px;
 }
+
 .pop-up {
     position: absolute;
     top: 50%;
@@ -153,4 +154,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.divisions .col-md-2 {
+    margin-top: 2%;
+    margin-right: 4%;
 }
