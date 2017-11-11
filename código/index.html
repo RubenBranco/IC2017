@@ -6,13 +6,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="index.js"></script>
 </head>
 <body>
     <div class="container ui-wrapper">
         <header class="header">
-            <img id="headerLogo" src="assets/imgs/LOGO%20BAMF.jpg">
+            <div class="img-div">
+                <img id="headerLogo" src="assets/imgs/LOGO%20BAMF.jpg">
+            </div>
+            <div class="user-info">
+                <table class="table">
+                    <tbody>
+                        <tr class="dateTr">
+                            <td id="dateDay" class="date"></td>
+                            <td id="dateMonth" class="date"></td>
+                            <td id="dateYear"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="dateTime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <i class="material-icons schedule">date_range</i>
+            </div>
         </header>
         <div class="container divisions">
             <div class="row">
@@ -31,7 +49,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <img src="./assets/imgs/cozinha.png">
+                    <a href="./cozinha.html"><img src="./assets/imgs/cozinha.png"></a>
                 </div>
                 <div class="col-md-2">
                     <img src="./assets/imgs/escritorio.svg">

@@ -14,15 +14,50 @@
     width:1280px;
     height:720px;
     border: 1px solid black;
+    padding:0;
+}
+
+.img-div {
+    height:100%;
+    width: 852px;
+    display:inline-block;
+}
+
+.user-info {
+    width:425px;
+    height:100%;
+    display:inline-block;
+    float:right;
+}
+
+.table {
+    border-collapse:collapse;
+    width:142px;
+    height: 60%;
+    margin-top:3%;
+    border-color:black !important;
+}
+
+.schedule {
+    font-size:80px;
+
+}
+
+.table td{
+    border: 1px solid black;
 }
 
 #headerLogo{
-    margin:0 25% 0 25%;
+    margin:0;
+    padding:0;
     height:100%;
 }
 
 header{
     height:20%;
+    padding:0;
+    margin:0;
+    width:100%;
 }
 
 .divisions {
@@ -36,7 +71,7 @@ header{
 
 .pop-up {
     position: absolute;
-    top: 50%;
+    top: 35%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%) scale(0.9);
     -moz-transform: translate(-50%, -50%) scale(0.9);
@@ -51,8 +86,8 @@ header{
     transition: all .3s;
     background-color: #ffffff;
     z-index:10;
-    width: 1100px;
-    height: 740px;
+    width: 500px;
+    height: 500px;
 }
 
 .pop-up-p {
@@ -76,7 +111,7 @@ header{
 }
 
 .popup-container {
-    padding: 100px 20px 140px;
+    padding: 50px 10px 70px;
 }
 
 .close {

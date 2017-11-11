@@ -2,7 +2,6 @@
 
 var date;
 
-
 function updateTimeUI(){
     $("#dateDay").text(date.getDay());
     $("#dateMonth").text(date.getMonth());
