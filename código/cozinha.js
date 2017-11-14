@@ -16,6 +16,7 @@ function main(){
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+
 }
 
 $(document).ready(function(){main()});
