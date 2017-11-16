@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="cozinha.js"></script>
+</head>
+<body>
+    <div class="container ui-wrapper">
+        <header class="header">
+            <div class="img-div">
+                <img id="headerLogo_index" src="assets/imgs/Logo.png">
+            </div>
+            <div class="user-info">
+                <table class="table">
+                    <tbody>
+                        <tr class="dateTr">
+                            <td id="dateDay" class="date"></td>
+                            <td id="dateMonth" class="date"></td>
+                            <td id="dateYear"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="dateTime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <i class="material-icons schedule">date_range</i>
+            </div>
+            <div class="img-div">
+                <img id="headerDivision" src="assets/imgs/cozinha.png">
+            </div>
+        </header>
+        <div class="container divisions icon_wrapper_cozinha">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="tv">Inventário de Comida</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Fogão</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Máquina de Lavar Loiça</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Máquina de Lavar Roupa</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Frigorífico</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Máquina de secar roupa</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Micro-ondas</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Máquina de Café</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Armários</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Forno</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Congelador</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary">Torradeira</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn_last">Adicionar Eletrodoméstico</button>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
