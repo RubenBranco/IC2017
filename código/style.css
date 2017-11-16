@@ -32,11 +32,11 @@
 }
 
 .table {
-    border-collapse:collapse;
-    width:142px;
-    position: absolute;
-    top:48px;
-    right: 210px;
+    border-collapse: collapse;
+    width: 142px;
+    position: relative;
+    top: 48px;
+    right: -130px;
     border: 1px solid #54d2f8;
     border-radius: 10px;
     display: block;
@@ -49,10 +49,10 @@
 }
 
 .schedule {
-    font-size:80px;
-    position: absolute;
-    top: 42px;
-    right: 98px;
+    font-size: 80px;
+    position: relative;
+    top: -48px;
+    right: -276px;
 }
 
 .table td{
@@ -60,11 +60,9 @@
 }
 
 #headerLogo{
-    margin:0;
-    padding:0;
-    height:200px;
-    position: absolute;
-    left: 120px;
+    height: 200px;
+    position: relative;
+    left: 51px;
     top: 10px;
 }
 
@@ -181,6 +179,20 @@ header{
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 .icon_wrapper{
