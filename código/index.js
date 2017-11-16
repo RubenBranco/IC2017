@@ -4,8 +4,8 @@ var date;
 
 
 function updateTimeUI(){
-    $("#dateDay").text(date.getDay());
-    $("#dateMonth").text(date.getMonth());
+    $("#dateDay").text(date.getDay() + "  /");
+    $("#dateMonth").text(date.getMonth() + "  /");
     $("#dateYear").text(date.getFullYear());
     $("#dateTime").text(date.toLocaleTimeString());
 }
