@@ -213,6 +213,7 @@ input:checked + .slider:before {
     background: #85dffa;
     border-radius: 20px;
     border: 1px solid #54d2f8;
+<<<<<<< HEAD
     position: relative;
     top: 53px;
     padding-top: 26px;
@@ -252,6 +253,9 @@ input:checked + .slider:before {
     height: 100%;
     left: 705px;
     top: -97px;
+=======
+
+>>>>>>> a5c9c091259130d74f18d592cfb5bc26bb0e0473
 }
 
 /* Rounded sliders */
@@ -268,6 +272,7 @@ input:checked + .slider:before {
     margin-right: 4%;
 }
 
+<<<<<<< HEAD
 .nav{
     background: white;
 }
@@ -316,3 +321,44 @@ a {
     width:70px;
     cursor:pointer;
 }
+=======
+
+/*css para refeicoes*/
+.center{
+  width: 150px;
+  margin: 15px auto;
+  float: right;
+}
+
+.col-md-3 {
+  border: 2px solid black;
+  overflow-y: scroll;
+  max-height: 458px;
+}
+
+.refeicoes{
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+}
+
+.item{
+  position: relative;
+  top: 27px;
+  right: 120px;
+}
+
+.input-group{
+  margin-left: 25px;
+}
+
+.ref_link{
+  position: absolute;
+  right: 15px;
+}
+
+.ref_title{
+  position: absolute;
+  left: 13px;
+}
+>>>>>>> a5c9c091259130d74f18d592cfb5bc26bb0e0473
