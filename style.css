@@ -36,7 +36,7 @@
     width: 142px;
     position: relative;
     top: 84px;
-    right: -95px;
+    right: -130px;
     border: 1px solid #54d2f8;
     border-radius: 10px;
     display: block;
@@ -60,24 +60,17 @@
 }
 
 #headerLogo {
-    height: 187px;
-    position: relative;
-    left: 51px;
-    top: 24px;
-}
-
-#headerLogo_index {
-    height: 220px;
+    height: 290px;
     position: relative;
     left: 51px;
     top: 10px;
 }
 
-#headerLogo_cal {
-    height: 96px;
+#headerLogo_index {
+    height: 257px;
     position: relative;
-    left: 269px;
-    top: -24px;
+    left: 51px;
+    top: 10px;
 }
 
 header{
@@ -209,14 +202,13 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.icon_wrapper_sala {
+.icon_wrapper_sala{
     background: #85dffa;
     border-radius: 20px;
     border: 1px solid #54d2f8;
     position: relative;
-    top: 53px;
-    padding-top: 26px;
-    height: 395px;
+    top: 123px;
+    padding-bottom: 16px;
 }
 
 .icon_wrapper_cozinha {
@@ -224,8 +216,8 @@ input:checked + .slider:before {
     border-radius: 20px;
     border: 1px solid #54d2f8;
     position: relative;
-    top: 46px;
-    height: 430px;
+    top: 59px;
+    padding-bottom: 16px;
 }
 
 .icon_wrapper_index{
@@ -243,15 +235,15 @@ input:checked + .slider:before {
 }
 
 .btn_last {
-    margin-left: -45px;
+    margin-left: -37px;
     width: 170%;
 }
 
-#headerDivision {
+#headerDivision{
     position: relative;
     height: 100%;
-    left: 705px;
-    top: -97px;
+    left: 1025px;
+    top: 35px;
 }
 
 /* Rounded sliders */
@@ -266,53 +258,4 @@ input:checked + .slider:before {
 .divisions .col-md-2 {
     margin-top: 2%;
     margin-right: 4%;
-}
-
-.nav{
-    background: white;
-}
-
-.nav-pills>li>a {
-    border-radius: 0px;
-}
-
-a {
-    color: #324a5e;
-    font-weight: 600;
-}
-
-#Calendar {
-    width: 75%;
-    position: absolute;
-    top: 270px;
-    left: 185px;
-}
-
-.selected {
-    color:red;
-}
-
-.eventClickNav {
-    border-radius: 100%;
-    width:50px;
-    z-index:10;
-}
-
-.eventClickNav li {
-    list-style-type:none;
-    border-top: 1px solid grey;
-    box-shadow: 0 0 0 0;
-    padding: 5px;
-    background-color: white;
-    width: 35px;
-}
-
-.eventClickNav li:first-child{
-    border-radius: 12px 12px 0 0;
-}
-
-.small-images{
-    height:70px;
-    width:70px;
-    cursor:pointer;
 }

@@ -13,8 +13,11 @@
 <body>
     <div class="container ui-wrapper">
         <header class="header">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="index.html"><span class="glyphicon glyphicon-chevron-left" ></span>Anterior</a></li>
+            </ul>
             <div class="img-div">
-                <img id="headerLogo" src="assets/imgs/LOGO%20BAMF.jpg">
+                <img id="headerLogo" src="assets/imgs/Logo.png">
             </div>
             <div class="user-info">
                 <table class="table">
@@ -29,20 +32,25 @@
                         </tr>
                     </tbody>
                 </table>
-                <i class="material-icons schedule">date_range</i>
+                <div class="img-div">
+                    <img id="headerLogo_cal" src="assets/imgs/calendario.png">
+                </div>
+            </div>
+            <div class="img-div">
+                <img id="headerDivision" src="assets/imgs/cozinha.png">
             </div>
         </header>
-        <div class="container divisions">
+        <div class="container divisions icon_wrapper_cozinha">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">Inventário de Comida</button>
+                    <button type="button" class="btn btn-primary" id="tv">Inventário de Comida</button>
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-primary">Fogão</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="loica">Máquina de Lavar Loiça</button>
+                    <button type="button" class="btn btn-primary">Máquina de Lavar Loiça</button>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -88,7 +96,7 @@
             <div class="row">
                 <div class="col-md-5"></div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">Adicionar Eletrodoméstico</button>
+                    <button type="button" class="btn btn-primary btn_last">Adicionar Eletrodoméstico</button>
                 </div>
                 <div class="col-md-5"></div>
             </div>
