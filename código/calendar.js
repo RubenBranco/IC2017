@@ -19,7 +19,7 @@ function renderDivision(division){
     for (var i = 0; i < menuLines.length; i++) {
         $("#division-setting-dropdown").append("<option value='" + menuLines[i] + "'>" + menuLines[i] + "</option>");
     }
-    $("#division-setting-dropdown").on('select2:select', function(e){
+    $("#division-setting-dropdown").on('select2:select', function(e) {
         tarefaSettings(e.params.data.text);
     });
 }
@@ -46,21 +46,58 @@ function addTask(){
         var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
         var taskObj = {'name': $("#taskName").val(), 'date': $("#taskDate").val(),
             'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()};
-        if (taskObj['type'] === 'Meter a mesa') {
-            taskObj['value'] = $(".mesa").val();
+        switch(taskObj['type']) {
+            case 'Meter a mesa':
+                taskObj['value'] = $(".mesa").val();
+                break;
+            case 'Comprar alimentos':
+                taskObj['value'] = foodQuantity;
+                break;
+            case 'Tratar do jantar':
+                var vals = [];
+                $("div.division-settings input[type='checkbox']").each(function(){
+                   if($(this).is(":checked")){
+                       vals.push($(this).prop("id"));
+                   }
+                });
+                taskObj['value'] = vals;
+                break;
+            case 'Refeição':
+                taskObj['value'] = mealQuantity;
+                break;
         }
-        else if (taskObj['type'] === 'Comprar alimentos') {
-            taskObj['value'] = foodQuantity;
-        }
-        if (eventsTasks.hasOwnProperty(eventHolder.id)){
-            eventsTasks[eventHolder.id].push(taskObj);
+        if (taskObj['type'] === 'Refeição') {
+            $(".add-task-wrapper").append("<div class='container mealWarn' style='z-index:10;height:400px;width:300px'>" +
+                "<h2>AVISO</h2><p>Não tem ingredientes suficientes para</p><ul><li>Bacalhau com natas</li>" +
+                "<li>Lasanha vegetariana</li></ul><p>Deseja encomendar ingredientes na mercearia local?</p>" +
+                "<button type='button' style='width:100px' id='orderY' class='btn-primary btn-md'>Sim</button>" +
+                "<button type='button' style='width:100px' id='orderN' class='btn-primary btn-md'>Não</button></div>");
+            $("#orderY").click(function(){
+                if (eventsTasks.hasOwnProperty(eventHolder.id)){
+                eventsTasks[eventHolder.id].push(taskObj);
+                }
+                else {
+                    eventsTasks[eventHolder.id] = [taskObj];
+                }
+                localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+                $(".add-task-wrapper").remove();
+                renderTasks();
+            });
+            $("#orderN").click(function(){
+                $(".mealWarn").remove();
+            });
         }
         else {
-            eventsTasks[eventHolder.id] = [taskObj];
+            if (eventsTasks.hasOwnProperty(eventHolder.id)){
+                eventsTasks[eventHolder.id].push(taskObj);
+            }
+            else {
+                eventsTasks[eventHolder.id] = [taskObj];
+            }
+            localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+            $(".add-task-wrapper").remove();
+            renderTasks();
         }
-        localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
-        $(".add-task-wrapper").remove();
-        renderTasks();
     });
     $(".small-images").click(function(){
        division = $(this).prop('src').split('/');
@@ -78,7 +115,6 @@ function renderTasks(){
                     + "</td><td>" + eventsTasks[eventHolder.id][i]['time'] + "</td><td>" + eventHolder.title + "</td><td>" +
                     "<img src='assets/imgs/edit.svg' style='height:24px;width:24px;cursor:pointer' class='editTask'> " +
                     "<img src='assets/imgs/delete.svg' style='height:24px;width:24px;cursor:pointer' class='delTask'></td></tr>").insertBefore('#addTaskTr');
-
                 renderedTasks.push(i);
             }
         }
@@ -225,15 +261,35 @@ function main() {
                     addTask();
                 });
                 $("body").on('click', '.delTask', function(){
-                   var taskID = Number($(this).parent().prop('id').split('-')[1]);
+                   var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
                    var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
-                   eventTasks[eventHolder].splice(taskID, 1);
-                   $(this).parent().remove();
+                   eventTasks[eventHolder.id].splice(taskID, 1);
+                   $(this).parent().parent().remove();
                    renderedTasks.splice(taskID, 1);
                    localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
                 });
                 $("body").on('click', '.editTask', function(){
-
+                    var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
+                    var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
+                    $(".ui-wrapper").append("<div class='container icon_wrapper_index add-task-wrapper' style='z-index:10'>" +
+                        "<div class='row add-task-row'><div class='col-md-6'><h1>Escolha zona da casa:</h1><div class='row'>" +
+                        "<div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/quarto.svg' class='small-images'></div>" +
+                        "<div class='col-md-2'><img src='assets/imgs/sala.svg' class='small-images'></div><div class='col-md-2'>" +
+                        "<img src='assets/imgs/casaDeBanho.svg' class='small-images'></div><div class='col-md-2'></div></div>" +
+                        "<div class='row'><div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/cozinha.png' " +
+                        "class='small-images'></div><div class='col-md-2'><img src='assets/imgs/escritorio.svg' class='small-images'>" +
+                        "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
+                        "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
+                        "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
+                        "<span style='color:red'>*</span>:</label><input type='text' class='form-control'" +
+                        " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
+                        "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
+                        "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
+                        "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
+                        "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+                    renderDivision(eventTasks[eventHolder.id][taskID]['division']);
+                    $("#division-setting-dropdown").val(eventTasks[eventHolder.id][taskID]['type']);
+                    $("#division-setting-dropdown").trigger('change');
                 });
             });
         },
