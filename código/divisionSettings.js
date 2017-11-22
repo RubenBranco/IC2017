@@ -26,9 +26,8 @@ function foodPurchase() {
     $(".foodPurchase").append('<button type="button" class="btn-primary btn-md" id="encomendar" style="width:150px;">Encomendar</button>');
     $("#encomendar").click(function(){
         $(".foodPurchase").remove();
-        $(".add-task-row").append("<h4>Encomendas</h4><ul id='encomendaResult'></ul>");
+        $(".division-settings").append("<h4>Encomendas</h4><ul id='encomendaResult'></ul>");
         for (var item in foodQuantity) {
-            console.log(item);
             if (foodQuantity[item] > 0) {
                 $("#encomendaResult").append("<li>" + item + ': ' + foodQuantity[item] + 'kg');
             }
@@ -48,23 +47,23 @@ function foodPurchase() {
                 '"><button type="button" class="btn-primary btn-md" id="confirmQ">Confirmar</button><button id="cancelQ" type="button" class="btn-primary btn-md' +
                 '">Cancelar</button></div>');
             $(".quantity").offset({top: $(currentTarget).offset().top + 30, left: $(currentTarget).offset().left + 20});
-            if (foodQuantity.hasOwnProperty($(currentTarget).prop("class").split()[1])) {
-                $(".inputQ").val(foodQuantity[$(currentTarget).prop("class").split()[1]]);
+            if (foodQuantity.hasOwnProperty($(currentTarget).prop("class").split(" ")[1])) {
+                $(".inputQ").val(foodQuantity[$(currentTarget).prop("class").split(" ")[1]]);
             }
             $("#cancelQ").click(function () {
                 $(".quantity").remove();
             });
             $("#confirmQ").click(function () {
-                foodQuantity[$(currentTarget).prop("class").split()[1]] = $(".inputQ").val();
+                foodQuantity[$(currentTarget).prop("class").split(" ")[1]] = $(".inputQ").val();
                 $(".quantity").remove();
-                $(currentTarget).css('font-weight', foodQuantity[$(currentTarget).prop("class").split()[1]] > 0 ? 'bold' : 'normal');
+                $(currentTarget).css('font-weight', foodQuantity[$(currentTarget).prop("class").split(" ")[1]] > 0 ? 'bold' : 'normal');
             });
         }
     });
 }
 
 function setTable() {
-    $(".division-settings").append("<div><label>Número de pessoas <input type='text' class='form-control'></label></div>");
+    $(".division-settings").append("<div><label>Número de pessoas <input type='text' class='form-control mesa'></label></div>");
 }
 
 function tarefaSettings(tarefa) {

@@ -52,8 +52,8 @@ function renderAddContacts() {
 }
 
 function updateTimeUI() {
-    $("#dateDay").text(date.getDay() + ' /');
-    $("#dateMonth").text(date.getMonth() + ' /');
+    $("#dateDay").text(date.getDate() + ' /');
+    $("#dateMonth").text(date.getMonth() + 1 + ' /');
     $("#dateYear").text(date.getFullYear());
     $("#dateTime").text(date.toLocaleTimeString());
 }

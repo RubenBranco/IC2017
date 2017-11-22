@@ -5,6 +5,7 @@ var eventHolder;
 var idnum;
 var chosenContacts = [];
 var renderedTasks = [];
+var division;
 
 
 function renderDivision(division){
@@ -12,7 +13,7 @@ function renderDivision(division){
     if ($("#division-setting-dropdown").length) {
         $(".division-settings").remove();
     }
-    $(".add-task-row").append('<div class="col-md-3 division-settings"><select id="division-setting-dropdown"></select></div>');
+    $(".division-settings").append('<select id="division-setting-dropdown"></select>');
     $("#division-setting-dropdown").select2();
     $("#division-setting-dropdown").append("<option value='' disabled selected>Escolha uma tarefa</option>");
     for (var i = 0; i < menuLines.length; i++) {
@@ -32,23 +33,54 @@ function addTask(){
         "<div class='row'><div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/cozinha.png' " +
         "class='small-images'></div><div class='col-md-2'><img src='assets/imgs/escritorio.svg' class='small-images'>" +
         "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
-        "<div class='col-md-2'></div></div></div></div></div>");
+        "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
+        "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
+        "<span style='color:red'>*</span>:</label><input type='text' class='form-control'" +
+        " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
+        "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
+        "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
+        "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
+        "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+    $("#cancelTask").click(function(){$(".add-task-wrapper").remove()});
+    $("#scheduleTask").click(function(){
+        var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
+        var taskObj = {'name': $("#taskName").val(), 'date': $("#taskDate").val(),
+            'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()};
+        if (taskObj['type'] === 'Meter a mesa') {
+            taskObj['value'] = $(".mesa").val();
+        }
+        else if (taskObj['type'] === 'Comprar alimentos') {
+            taskObj['value'] = foodQuantity;
+        }
+        if (eventsTasks.hasOwnProperty(eventHolder.id)){
+            eventsTasks[eventHolder.id].push(taskObj);
+        }
+        else {
+            eventsTasks[eventHolder.id] = [taskObj];
+        }
+        localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+        $(".add-task-wrapper").remove();
+        renderTasks();
+    });
     $(".small-images").click(function(){
-       var division = $(this).prop('src').split('/');
+       division = $(this).prop('src').split('/');
        division = division[division.length - 1].split('.')[0];
        renderDivision(division);
     });
 }
 
 function renderTasks(){
-    var eventsTasks = localStorage.getItem('eventsTasks') === null ? [] : JSON.parse(localStorage.getItem('eventsTasks'));
-    for (var i = 0; i < eventsTasks.length; i++) {
-        if (renderedTasks.indexOf(i) === -1) {
-            $("<tr id='" + "Task-" + String(i) + "'><td>" + eventsTasks[i]['name'] + "</td><td>" + eventsTasks[i]['date']
-                + "</td><td>" + eventsTasks[i]['time'] + "</td><td>" + eventHolder.title + "</td><td>" +
-                "<img src='assets/imgs/edit.svg' style='height:24px;width:24px;cursor:pointer' class='editTask'> " +
-                "<img src='assets/imgs/delete.svg' style='height:24px;width:24px;cursor:pointer' class='delTask'></td></tr>");
-            chosenContacts.push(i);
+    var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
+    if (eventsTasks.hasOwnProperty(eventHolder.id)) {
+        for (var i = 0; i < eventsTasks[eventHolder.id].length; i++) {
+            if (renderedTasks.indexOf(i) === -1) {
+                $("<tr id='" + "Task-" + String(i) + "'><td>" + eventsTasks[eventHolder.id][i]['name'] + "</td><td>" + eventsTasks[eventHolder.id][i]['date']
+                    + "</td><td>" + eventsTasks[eventHolder.id][i]['time'] + "</td><td>" + eventHolder.title + "</td><td>" +
+                    "<img src='assets/imgs/edit.svg' style='height:24px;width:24px;cursor:pointer' class='editTask'> " +
+                    "<img src='assets/imgs/delete.svg' style='height:24px;width:24px;cursor:pointer' class='delTask'></td></tr>").insertBefore('#addTaskTr');
+
+                renderedTasks.push(i);
+            }
         }
     }
 }
@@ -101,9 +133,9 @@ function renderAddContacts() {
     });
 }
 
-function updateTimeUI(){
-    $("#dateDay").text(date.getDay() + ' /');
-    $("#dateMonth").text(date.getMonth() + ' /');
+function updateTimeUI() {
+    $("#dateDay").text(date.getDate() + ' /');
+    $("#dateMonth").text(date.getMonth() + 1 + ' /');
     $("#dateYear").text(date.getFullYear());
     $("#dateTime").text(date.toLocaleTimeString());
 }
@@ -195,8 +227,9 @@ function main() {
                 $("body").on('click', '.delTask', function(){
                    var taskID = Number($(this).parent().prop('id').split('-')[1]);
                    var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
-                   events.splice(taskID, 1);
+                   eventTasks[eventHolder].splice(taskID, 1);
                    $(this).parent().remove();
+                   renderedTasks.splice(taskID, 1);
                    localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
                 });
                 $("body").on('click', '.editTask', function(){
