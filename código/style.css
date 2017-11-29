@@ -39,23 +39,8 @@
     border-collapse: collapse;
     width: 142px;
     position: relative;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     top: 70px;
     right: -95px;
-=======
-    top: 48px;
-    right: -130px;
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
-    top: 48px;
-    right: -130px;
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
-    top: 48px;
-    right: -130px;
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
     border: 1px solid #54d2f8;
     border-radius: 10px;
     display: block;
@@ -70,24 +55,28 @@
 .schedule {
     font-size: 80px;
     position: relative;
-    top: -48px;
-    right: -276px;
+    top: -14px;
+    right: -280px;
 }
 
 .table td{
      border-top: 1px solid transparent !important;
 }
 
-#headerLogo{
-    height: 200px;
+#headerLogo {
+    height: 187px;
+    position: relative;
+    left: 51px;
+    top: 24px;
+}
+
+#headerLogo_index {
+    height: 220px;
     position: relative;
     left: 51px;
     top: 10px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #headerLogo_cal {
     height: 96px;
     position: relative;
@@ -95,12 +84,6 @@
     top: -37px;
 }
 
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 header{
     height:20%;
     padding:0;
@@ -237,14 +220,16 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.icon_wrapper{
+.icon_wrapper_sala {
     background: #85dffa;
     border-radius: 20px;
     border: 1px solid #54d2f8;
+    position: relative;
+    top: 53px;
+    padding-top: 26px;
+    height: 395px;
+}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .icon_wrapper_cozinha {
     background: #85dffa;
     border-radius: 20px;
@@ -294,12 +279,6 @@ input:checked + .slider:before {
     height: 160px;
     left: 57px;
     top: -60px;
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 }
 
 /* Rounded sliders */
@@ -316,23 +295,19 @@ input:checked + .slider:before {
     margin-right: 4%;
 }
 
-
-/*css para refeicoes*/
-.center{
-  width: 150px;
-  margin: 15px auto;
-  float: right;
+.nav{
+    background: white;
 }
 
-.col-md-3 {
-  border: 2px solid black;
-  overflow-y: scroll;
-  max-height: 458px;
+.nav-pills>li>a {
+    border-radius: 0px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+a {
+    color: #324a5e;
+    font-weight: 600;
+}
+
 #Calendar {
     width: 75%;
     position: absolute;
@@ -342,54 +317,30 @@ input:checked + .slider:before {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #54d2f8;
-=======
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-.refeicoes{
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 100px;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 }
 
-.item{
-  position: relative;
-  top: 27px;
-  right: 120px;
+.selected {
+    color:red;
 }
 
-=======
+.eventClickNav {
+    border-radius: 100%;
+    width:50px;
+    z-index:10;
 }
 
-.item{
-  position: relative;
-  top: 27px;
-  right: 120px;
+.eventClickNav li {
+    list-style-type:none;
+    border-top: 1px solid grey;
+    box-shadow: 0 0 0 0;
+    padding: 5px;
+    background-color: white;
+    width: 35px;
 }
 
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-.input-group{
-  margin-left: 25px;
+.eventClickNav li:first-child{
+    border-radius: 12px 12px 0 0;
 }
-
-.ref_link{
-  position: absolute;
-  right: 15px;
-}
-
-.ref_title{
-  position: absolute;
-  left: 13px;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 .small-images{
     height:70px;
@@ -502,9 +453,3 @@ input:checked + .slider:before {
     left: 424px;
     z-index: 101;
 }
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
-=======
->>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
