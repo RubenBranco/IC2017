@@ -41,8 +41,13 @@
     position: relative;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     top: 70px;
     right: -95px;
+=======
+    top: 48px;
+    right: -130px;
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
     top: 48px;
     right: -130px;
@@ -82,6 +87,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #headerLogo_cal {
     height: 96px;
     position: relative;
@@ -89,6 +95,8 @@
     top: -37px;
 }
 
+=======
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
@@ -236,6 +244,7 @@ input:checked + .slider:before {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .icon_wrapper_cozinha {
     background: #85dffa;
     border-radius: 20px;
@@ -289,6 +298,8 @@ input:checked + .slider:before {
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
+=======
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 }
 
 /* Rounded sliders */
@@ -321,6 +332,7 @@ input:checked + .slider:before {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #Calendar {
     width: 75%;
     position: absolute;
@@ -333,10 +345,13 @@ input:checked + .slider:before {
 =======
 =======
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
+=======
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 .refeicoes{
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 100px;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
@@ -349,6 +364,16 @@ input:checked + .slider:before {
   right: 120px;
 }
 
+=======
+}
+
+.item{
+  position: relative;
+  top: 27px;
+  right: 120px;
+}
+
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 .input-group{
   margin-left: 25px;
 }
@@ -362,6 +387,7 @@ input:checked + .slider:before {
   position: absolute;
   left: 13px;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -476,6 +502,8 @@ input:checked + .slider:before {
     left: 424px;
     z-index: 101;
 }
+=======
+>>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
 >>>>>>> cdb67bfc2fc0574dcb3fa5a5a657627a54a784c8
 =======
