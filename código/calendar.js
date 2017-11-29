@@ -11,7 +11,7 @@ var division;
 function renderDivision(division){
     var menuLines = tarefaMenu(division);
     if ($("#division-setting-dropdown").length) {
-        $(".division-settings").remove();
+        $(".division-settings").empty();
     }
     $(".division-settings").append('<select id="division-setting-dropdown"></select>');
     $("#division-setting-dropdown").select2();
@@ -20,12 +20,20 @@ function renderDivision(division){
         $("#division-setting-dropdown").append("<option value='" + menuLines[i] + "'>" + menuLines[i] + "</option>");
     }
     $("#division-setting-dropdown").on('select2:select', function(e) {
+        if ($(".division-settings").children().length > 2) {
+            $(".division-settings").children().each(function(){
+                console.log($(this));
+                if ($(this).prop('id') !== 'division-setting-dropdown' && !$(this).hasClass("select2")) {
+                    $(this).remove();
+                }
+            });
+        }
         tarefaSettings(e.params.data.text);
     });
 }
 
 function addTask(){
-    $(".ui-wrapper").append("<div class='container icon_wrapper_index add-task-wrapper' style='z-index:10'>" +
+    $(".ui-wrapper").append("<div class='container icon_wrapper_index icon_wrapper_zona add-task-wrapper' style='z-index:10'>" +
         "<div class='row add-task-row'><div class='col-md-6'><h1>Escolha zona da casa:</h1><div class='row'>" +
         "<div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/quarto.svg' class='small-images'></div>" +
         "<div class='col-md-2'><img src='assets/imgs/sala.svg' class='small-images'></div><div class='col-md-2'>" +
@@ -35,14 +43,14 @@ function addTask(){
         "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
         "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
         "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
-        "<span style='color:red'>*</span>:</label><input type='text' class='form-control'" +
+        "<span style='color:red'>*</span>:</label><input type='text' class='form-control keyboardNeed'" +
         " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
-        "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
+        "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-control keyboardNeed'>" +
         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
-        "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
-        "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+        "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><input type='submit' id='agendar' class='btn-primary btn-md' style='width:100px'" +
+        "value='Agendar' disabled='true'><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
     $("#cancelTask").click(function(){$(".add-task-wrapper").remove()});
-    $("#scheduleTask").click(function(){
+    $("#agendar").click(function(){
         var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
         var taskObj = {'name': $("#taskName").val(), 'date': $("#taskDate").val(),
             'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()};
@@ -119,6 +127,15 @@ function renderTasks(){
             }
         }
     }
+    if (eventHolder.start.title === 'Jantar de Amigos' && eventsTasks[eventHolder.id] !== undefined) {
+        if (Object.keys(eventsTasks[eventHolder.id]).length === 2) {
+            // Sitio onde precisas de fazer fix de css, aparece quando o jantar de amigos tem 2 tasks
+            $(".ui-wrapper").append("<div class='icon_wrapper_tasks late' style='z-index:99'><p>Atividades propostas ultrapassam a hora do evento!</p><button type='button' class='btn-primary lateButton btn-md'>Adiar o evento e notificar convidades</button></div>");
+            $(".lateButton").click(function () {
+                $(".late").remove()
+            });
+        }
+    }
 }
 
 function refreshTotalInvites() {
@@ -176,6 +193,25 @@ function updateTimeUI() {
     $("#dateTime").text(date.toLocaleTimeString());
 }
 
+function validate(){
+    if ($('#taskName').val().length   >   0   && $('#taskDate').val().length  >   0   && $('#taskTime').val().length    >   0) {
+        $("input[type=submit]").prop("disabled", false);
+    }
+    else {
+        $("input[type=submit]").prop("disabled", true);
+    }
+}
+
+function keyboardAppear(){
+  $('input[class="form-control keyboardNeed"]').click(function(){
+    $('#keyboard').show();
+  });
+
+  $("div[id='keyboard']").click(function(){
+    $('#keyboard').hide();
+  });
+}
+
 function main() {
     date = new Date();
     updateTimeUI();
@@ -183,6 +219,20 @@ function main() {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+    var contacts = localStorage.getItem('contacts');
+    var events = localStorage.getItem('events');
+    if (contacts === null) {
+        contacts = {"1": {"name": "Amigos Casamento(Grupo)", "size": 60}, "2": {"name": "Ana", "size": 1}, "3":{"name": "António",
+            "size": 1}, "4": {"name": "Bernardo", "size": 1}, "5": {"name": "Bonifácio", "size": 1}, "6": {"name": "Bóris", "size":1},
+        "7": {"name": "Carolina", "size": 1}, "8": {"name": "Claudia", "size": 1}, "9": {"name": "Familia(Grupo", "size": 40}, "10":{"name":"Ruben", "size":1},
+        "11": {"name": "João", "size": 1}};
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+    }
+    if (events === null) {
+        events = {"1":{"name":"Jantar de Amigos","date":"2017-12-01","time":"19:00"}};
+        localStorage.setItem("events", JSON.stringify(events));
+        localStorage.setItem("nextID", "2");
+    }
     $("#Calendar").fullCalendar({
         customButtons: {
             create: {
@@ -216,12 +266,14 @@ function main() {
             $(".eventClickNav").offset({top:$(e.currentTarget).offset().top - 120, left: $(e.currentTarget).offset().left - 35});
             $("#addInvites").click(function(){
                 idnum = eventHolder.id;
+                $(".eventClickNav").remove();
                 $(".ui-wrapper").append('<div class="container icon_wrapper_index" style="z-index:10;"></div>');
                 $(".icon_wrapper_index").append('<h1>Lista de convidados</h1><table><thead><tr><th>NOME</th>' +
                 '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
                 'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
                 '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                '<button type="button" class="btn-primary btn-md" id="convidar" style="width:100px;">Convidar</button>');
+                '<button type="button" class="btn-primary btn-md" id="convidar" style="width:100px;">Convidar</button>' +
+                    '<button type="button" class="btn-primary btn-md" id="exitInvite" style="width:100px;">Sair</button>');
                 $("#addImage").click(function(){renderAddContacts()});
                 $("#addText").click(function(){renderAddContacts()});
                 $("body").on("click", ".delContact", function(){
@@ -229,6 +281,11 @@ function main() {
                     chosenContacts.splice(chosenContacts.indexOf(delID), 1);
                     $("#" + delID).parent().remove();
                     refreshTotalInvites();
+                });
+                $("#Calendar").hide();
+                $("#exitInvite").click(function(){
+                    $(".icon_wrapper_index").remove();
+                    $("#Calendar").show();
                 });
                 $("#convidar").click(function(){
                     var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
@@ -248,18 +305,37 @@ function main() {
                 if ($("#Calendar").fullCalendar('getView').title !== 'agendaDay') {
                     $("#Calendar").fullCalendar('changeView', 'agendaDay', eventHolder.start);
                 }
-                $(".ui-wrapper").append('<div class="container icon_wrapper_index" style="z-index:10;">' +
-                    '<h1>Lista de Tarefas</h1><table><thead><tr><th>NOME</th><th>DATA</th><th>' +
-                    'HORA</th><th>EVENTO</th><th>OPÇÕES</th></tr></thead><tbody><tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
+                else {
+                    $(".eventClickNav").remove();
+                }
+                $(".ui-wrapper").append('<div class="container icon_wrapper_index editEventDiv" style="z-index:10;">' +
+                    '<h1>Lista de Tarefas</h1><table><thead><tr><th style="padding-right:20px;">NOME</th><th style="padding-right:20px;">DATA</th><th style="padding-right:20px;">' +
+                    'HORA</th><th style="padding-right:20px;">EVENTO</th><th>OPÇÕES</th></tr></thead><tbody><tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
                     ';cursor:pointer;" src="assets/imgs/add-task.svg"> <span id="addTaskText" style="cursor:pointer">' +
-                    'Adicionar Tarefas</span></td></tr></tbody></table></div>');
+                    'Adicionar Tarefas</span></td></tr></tbody></table><button type="button" style="width:100px;" class="btn-primary btn-md" id="exitEditEvent">Sair</button></div>');
+                $("#Calendar").hide();
+                $("#exitEditEvent").click(function(){
+                    $(".editEventDiv").remove();
+                    $("#Calendar").show();
+                });
                 renderTasks();
                 $("#addTaskText").click(function(){
                     addTask();
+                    $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
+                    keyboardAppear();
+                    $("#taskName, #taskDate, #taskTime").change(validate);
+
                 });
                 $("#addTask").click(function(){
                     addTask();
+                    $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
+                    keyboardAppear();
+                    $("#taskName, #taskDate, #taskTime").change(validate);
+
                 });
+
+
+
                 $("body").on('click', '.delTask', function(){
                    var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
                    var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
@@ -281,12 +357,13 @@ function main() {
                         "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
                         "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
                         "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
-                        "<span style='color:red'>*</span>:</label><input type='text' class='form-control'" +
+                        "<span style='color:red'>*</span>:</label><input type='text' class='form-control keyboardNeed'" +
                         " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
                         "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
                         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
                         "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
                         "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+
                     renderDivision(eventTasks[eventHolder.id][taskID]['division']);
                     $("#division-setting-dropdown").val(eventTasks[eventHolder.id][taskID]['type']);
                     $("#division-setting-dropdown").trigger('change');

@@ -30,7 +30,7 @@ function contacts() {
 
 function renderAddContacts() {
     var contacts = localStorage.getItem('contacts') === null ? {} : JSON.parse(localStorage.getItem('contacts'));
-    $(".ui-wrapper").append('<div class="container contacts-wrapper" style="height:500px;width:200px"><h1>CONTACTOS</h1><div class="container contacts"></div></div>');
+    $(".ui-wrapper").append('<div class="container contacts-wrapper" style="top: 230px;"><h1>CONTACTOS</h1><div class="container contacts"></div></div>');
     for (var id in contacts) {
         if (chosenContacts.indexOf(id) === -1) {
             $(".contacts").append('<div class="row"><div id="_' + String(id) + '" class="col-md-12 contact" style="cursor:pointer">' +
@@ -58,9 +58,34 @@ function updateTimeUI() {
     $("#dateTime").text(date.toLocaleTimeString());
 }
 
+function validate(){
+    console.log('hello');
+    if ($('#name').val().length   >   0   && $('#date').val().length  >   0   && $('#hour').val().length    >   0) {
+        $("input[type=submit]").prop("disabled", false);
+    }
+    else {
+        $("input[type=submit]").prop("disabled", true);
+        console.log('hello');
+    }
+}
+
+function keyboardAppear(){
+  $('input[class="form-control keyboardNeed"]').click(function(){
+    $('#keyboard').show();
+  });
+
+  $("div[id='keyboard']").click(function(){
+    $('#keyboard').hide();
+  });
+}
+
+
 function main() {
+    console.log('start');
     date = new Date();
     updateTimeUI();
+    $(".ui-wrapper").append("<div id='keyboard' style='display:none' class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
+    keyboardAppear();
     setInterval(function () {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
@@ -88,7 +113,7 @@ function main() {
                 '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
                 'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
                 '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                '<button type="button" class="btn-primary btn-md" id="convidar">Convidar</button>');
+                '<button type="button" class="btn-primary btn-md"  style="width:100px; id="convidar">Convidar</button>');
             $("#addImage").click(function(){renderAddContacts()});
             $("#addText").click(function(){renderAddContacts()});
             $("body").on("click", ".delContact", function(){
@@ -108,6 +133,9 @@ function main() {
            location.replace('calendar.html');
         });
     });
+
+    $("#name, #date, #hour").change(validate);
+
 }
 
 $(document).ready(function(){main()});

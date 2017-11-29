@@ -18,13 +18,19 @@ function main(){
     }, 1000);
     $("#tv").click(function(){
         $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Televisão' +
-            '</h1><i class="material-icons close" id="popup-close">' +
-                    'cancel</i><div class="row"><span>Estado: </span><input type="checkbox" id="state"></div>' +
+            '</h1><button class="btn-primary btn-md" id="popup-close">Fechar</button>' +
+                    ' <div class="row"><span>Estado: </span><input type="checkbox" id="state"></div>' +
             '<div class="row"><span>Canal:</span><select class="canal"><option value="89">89</option>' +
             '<option value="88">88</option><option value="87">87</option></select></div></div></div></div>');
                 $("#popup-close").click(function(){
                     $("#popup-close").unbind('click');
                     $(".pop-up").remove();
+                    $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>E-mail de confirmação enviado' +
+            '</h1><button class="btn-primary btn-md" id="popup-close1">Fechar</button></div></div></div>');
+                        $("#popup-close1").click(function(){
+                            $("#popup-close1").unbind('click');
+                            $(".pop-up").remove();
+                            });
                 });
         $(".canal").select2();
         $("#state").bootstrapSwitch('size', 'mini');
