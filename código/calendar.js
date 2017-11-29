@@ -47,42 +47,58 @@ function addTask(){
         " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
         "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-control keyboardNeed'>" +
         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
-        "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><input type='submit' id='agendar' class='btn-primary btn-md' style='width:100px'" +
-        "value='Agendar' disabled='true'><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+        "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><button type='button' id='agendar' class='btn-primary btn-md disabled' style='width:100px'" +
+        ">Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
     $("#cancelTask").click(function(){$(".add-task-wrapper").remove()});
     $("#agendar").click(function(){
-        var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
-        var taskObj = {'name': $("#taskName").val(), 'date': $("#taskDate").val(),
-            'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()};
-        switch(taskObj['type']) {
-            case 'Meter a mesa':
-                taskObj['value'] = $(".mesa").val();
-                break;
-            case 'Comprar alimentos':
-                taskObj['value'] = foodQuantity;
-                break;
-            case 'Tratar do jantar':
-                var vals = [];
-                $("div.division-settings input[type='checkbox']").each(function(){
-                   if($(this).is(":checked")){
-                       vals.push($(this).prop("id"));
-                   }
+        if (validate()) {
+            var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
+            var taskObj = {'name': $("#taskName").val(), 'date': $("#taskDate").val(),
+                'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()};
+            switch(taskObj['type']) {
+                case 'Meter a mesa':
+                    taskObj['value'] = $(".mesa").val();
+                    break;
+                case 'Comprar alimentos':
+                    taskObj['value'] = foodQuantity;
+                    break;
+                case 'Tratar do jantar':
+                    var vals = [];
+                    $("div.division-settings input[type='checkbox']").each(function(){
+                        if($(this).is(":checked")){
+                            vals.push($(this).prop("id"));
+                        }
+                    });
+                    taskObj['value'] = vals;
+                    break;
+                case 'Refeição':
+                    taskObj['value'] = mealQuantity;
+                    break;
+            }
+            if (taskObj['type'] === 'Refeição') {
+                $(".add-task-wrapper").append("<div class='container mealWarn' style='z-index:10;height:400px;width:300px'>" +
+                    "<h2>AVISO</h2><p>Não tem ingredientes suficientes para</p><ul><li>Bacalhau com natas</li>" +
+                    "<li>Lasanha vegetariana</li></ul><p>Deseja encomendar ingredientes na mercearia local?</p>" +
+                    "<button type='button' style='width:100px' id='orderY' class='btn-primary btn-md'>Sim</button>" +
+                    "<button type='button' style='width:100px' id='orderN' class='btn-primary btn-md'>Não</button></div>");
+                $("#orderY").click(function(){
+                    if (eventsTasks.hasOwnProperty(eventHolder.id)){
+                        eventsTasks[eventHolder.id].push(taskObj);
+                    }
+                    else {
+                        eventsTasks[eventHolder.id] = [taskObj];
+                    }
+                    localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+                    $(".add-task-wrapper").remove();
+                    renderTasks();
                 });
-                taskObj['value'] = vals;
-                break;
-            case 'Refeição':
-                taskObj['value'] = mealQuantity;
-                break;
-        }
-        if (taskObj['type'] === 'Refeição') {
-            $(".add-task-wrapper").append("<div class='container mealWarn' style='z-index:10;height:400px;width:300px'>" +
-                "<h2>AVISO</h2><p>Não tem ingredientes suficientes para</p><ul><li>Bacalhau com natas</li>" +
-                "<li>Lasanha vegetariana</li></ul><p>Deseja encomendar ingredientes na mercearia local?</p>" +
-                "<button type='button' style='width:100px' id='orderY' class='btn-primary btn-md'>Sim</button>" +
-                "<button type='button' style='width:100px' id='orderN' class='btn-primary btn-md'>Não</button></div>");
-            $("#orderY").click(function(){
+                $("#orderN").click(function(){
+                    $(".mealWarn").remove();
+                });
+            }
+            else {
                 if (eventsTasks.hasOwnProperty(eventHolder.id)){
-                eventsTasks[eventHolder.id].push(taskObj);
+                    eventsTasks[eventHolder.id].push(taskObj);
                 }
                 else {
                     eventsTasks[eventHolder.id] = [taskObj];
@@ -90,21 +106,7 @@ function addTask(){
                 localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
                 $(".add-task-wrapper").remove();
                 renderTasks();
-            });
-            $("#orderN").click(function(){
-                $(".mealWarn").remove();
-            });
-        }
-        else {
-            if (eventsTasks.hasOwnProperty(eventHolder.id)){
-                eventsTasks[eventHolder.id].push(taskObj);
             }
-            else {
-                eventsTasks[eventHolder.id] = [taskObj];
-            }
-            localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
-            $(".add-task-wrapper").remove();
-            renderTasks();
         }
     });
     $(".small-images").click(function(){
@@ -194,12 +196,73 @@ function updateTimeUI() {
 }
 
 function validate(){
-    if ($('#taskName').val().length   >   0   && $('#taskDate').val().length  >   0   && $('#taskTime').val().length    >   0) {
-        $("input[type=submit]").prop("disabled", false);
+    var ret = true;
+    if ($("#division-setting-dropdown").find(":selected")[0].innerText === 'Escolha uma tarefa') {
+        $("#division-setting-dropdown").css("border", "1px solid red");
+        ret = false;
     }
-    else {
-        $("input[type=submit]").prop("disabled", true);
+    if ($('#taskName').val().length > 0 && $('#taskDate').val().length > 0 && $('#taskTime').val().length > 0) {
+        if (moment($("#taskDate").val()).isBefore(moment())) {
+            ret = false;
+            if (!$("#errorDateBefore").length) {
+                $("#dateGroup").addClass("has-error");
+                $("<span id='errorDateBefore' class='help-block'>Não pode escolher uma data no passado</span>").insertAfter("#taskDate");
+            }
+        } else {
+            if ($("#errorDateBefore").length){
+                $("#dateGroup").removeClass("has-error");
+                $("#errorDateBefore").remove();
+            }
+        }
+        if (!moment($("#taskDate").val()).isBefore(moment()) && $("#taskDate").val().split("-")[0].length > 4) {
+            ret = false;
+            if (!$("#errorYear").length) {
+                $("#dateGroup").addClass("has-error");
+                $("<span id='errorYear' class='help-block'>Não pode escolher um ano acima de 4 digitos</span>").insertAfter("#taskDate");
+            }
+        } else {
+            if ($("#errorYear").length) {
+                $("#dateGroup").addClass("has-error");
+                $("#errorYear").remove();
+            }
+        }
+    } else {
+        if (!$("#taskName").val().length) {
+            if (!$("#noNameError").length) {
+                $("#nameGroup").addClass("has-error");
+                $("<span id='noNameError' class='help-block'>Escolha um nome</span>").insertAfter("#taskName");
+            }
+        } else {
+            if ($("#noNameError").length) {
+                $("#nameGroup").removeClass("has-error");
+                $("#noNameError").remove();
+            }
+        }
+        if (!$("#taskDate").val().length) {
+            if (!$("#noDateError").length) {
+                $("#dateGroup").addClass("has-error");
+                $("<span id='noDateError' class='help-block'>Escolha uma data</span>").insertAfter("#taskDate");
+            }
+        } else {
+            if ($("#noDateError").length) {
+                $("#dateGroup").removeClass("has-error");
+                $("#noDateError").remove();
+            }
+        }
+        if (!$("#taskTime").val().length) {
+            if (!$("#noTimeError").length) {
+                $("#timeGroup").addClass("has-error");
+                $("<span id='noTimeError' class='help-block'>Escolha uma hora</span>").insertAfter("#taskTime");
+            }
+        } else {
+            if ($("#noTimeError").length) {
+                $("#timeGroup").removeClass("has-error");
+                $("#noTimeError").remove();
+            }
+        }
+        ret = false;
     }
+    return ret;
 }
 
 function keyboardAppear(){
@@ -323,14 +386,12 @@ function main() {
                     addTask();
                     $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
                     keyboardAppear();
-                    $("#taskName, #taskDate, #taskTime").change(validate);
 
                 });
                 $("#addTask").click(function(){
                     addTask();
                     $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
                     keyboardAppear();
-                    $("#taskName, #taskDate, #taskTime").change(validate);
 
                 });
 

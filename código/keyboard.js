@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 function keyboardAppear(){
   $('input[class="form-control keyboardNeed"]').click(function(){
