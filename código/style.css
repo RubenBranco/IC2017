@@ -8,11 +8,6 @@
     100% {border-color: rgba(255, 0, 0, 1)}
 }
 
-@keyframes text-pulsate {
-    0% {color: rgba(0, 0, 0, 1)}
-    50% {color: rgba(0, 0, 0, 0)}
-    100% {color: rgba(0, 0, 0, 1)}
-}
 
 .ui-wrapper {
     width:1280px;
@@ -89,6 +84,12 @@ header{
     padding:0;
     margin:0;
     width:100%;
+}
+
+.border-pulsate-class {
+    border:2px solid red !important;
+    border-radius: 20px;
+    animation: border-pulse 3s infinite;
 }
 
 .divisions {
