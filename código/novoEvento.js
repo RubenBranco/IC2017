@@ -58,15 +58,86 @@ function updateTimeUI() {
     $("#dateTime").text(date.toLocaleTimeString());
 }
 
-function validate(){
-    console.log('hello');
-    if ($('#name').val().length   >   0   && $('#date').val().length  >   0   && $('#hour').val().length    >   0) {
-        $("input[type=submit]").prop("disabled", false);
+function validate(visual) {
+    var ret = true;
+    if ($('#name').val().length > 0 && $('#date').val().length > 0 && $('#hour').val().length > 0) {
+        if (moment($("#date").val()).isBefore(moment())) {
+            ret = false;
+            if (visual) {
+                if (!$("#errorDateBefore").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='errorDateBefore' class='help-block'>Não pode escolher uma data no passado</span>").insertAfter("#date");
+                }
+            }
+        } else {
+            if ($("#errorDateBefore").length) {
+                $("#dateGroup").removeClass("has-error");
+                $("#errorDateBefore").remove();
+            }
+        }
+        if (!moment($("#date").val()).isBefore(moment()) && $("#date").val().split("-")[0].length > 4) {
+            ret = false;
+            if (visual) {
+                if (!$("#errorYear").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='errorYear' class='help-block'>Não pode escolher um ano acima de 4 digitos</span>").insertAfter("#date");
+                }
+            }
+        } else {
+            if ($("#errorYear").length) {
+                $("#dateGroup").addClass("has-error");
+                $("#errorYear").remove();
+            }
+        }
+    } else {
+        if (!$("#name").val().length) {
+            if (visual) {
+                if (!$("#noNameError").length) {
+                    $("#nameGroup").addClass("has-error");
+                    $("<span id='noNameError' class='help-block'>Escolha um nome</span>").insertAfter("#name");
+                }
+            }
+        } else {
+            if ($("#noNameError").length) {
+                $("#nameGroup").removeClass("has-error");
+                $("#noNameError").remove();
+            }
+        }
+        if (!$("#date").val().length) {
+            if (visual) {
+                if (!$("#noDateError").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='noDateError' class='help-block'>Escolha uma data</span>").insertAfter("#date");
+                }
+            }
+        } else {
+            if ($("#noDateError").length) {
+                $("#dateGroup").removeClass("has-error");
+                $("#noDateError").remove();
+            }
+        }
+        if (!$("#hour").val().length) {
+            if (visual) {
+                if (!$("#noTimeError").length) {
+                    $("#hourGroup").addClass("has-error");
+                    $("<span id='noTimeError' class='help-block'>Escolha uma hora</span>").insertAfter("#hour");
+                }
+            }
+        } else {
+            if ($("#noTimeError").length) {
+                $("#hourGroup").removeClass("has-error");
+                $("#noTimeError").remove();
+            }
+        }
+        ret = false;
+    }
+    if (ret) {
+        if ($("#agendar").hasClass("disabled")) $("#agendar").removeClass("disabled");
     }
     else {
-        $("input[type=submit]").prop("disabled", true);
-        console.log('hello');
+        if (!$("#agendar").hasClass("disabled")) $("#agendar").addClass("disabled");
     }
+    return ret;
 }
 
 function keyboardAppear(){
@@ -81,7 +152,6 @@ function keyboardAppear(){
 
 
 function main() {
-    console.log('start');
     date = new Date();
     updateTimeUI();
     $(".ui-wrapper").append("<div id='keyboard' style='display:none' class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
@@ -96,45 +166,50 @@ function main() {
     var newEventDate = localStorage.getItem('newEventDate');
     $("#date").val(newEventDate);
     $("#agendar").click(function(){
-        var events = localStorage.getItem('events') === null ? {} : JSON.parse(localStorage.getItem('events'));
-        var id = localStorage.getItem('nextID') === null ? "1" : localStorage.getItem('nextID');
-        events[id] = {'name': $("#name").val(), 'date': $("#date").val(), 'time': $("#hour").val()};
-        idnum = id;
-        localStorage.setItem('events', JSON.stringify(events));
-        localStorage.setItem('setCurrentDate', $("#date").val());
-        localStorage.setItem('nextID', String(Number(id) + 1));
-        $(".icon_wrapper_index").empty();
-        $(".icon_wrapper_index").append('<h1>Deseja fazer os convites para o evento?</h1>' +
-            '<button type="button" style="width:100px" class="btn-primary btn-md" id="yes">Sim</button><button type="button" ' +
-            'class="btn-primary btn-md" style="width:100px" id="no">Não</button>');
-        $("#yes").click(function(){
+        if (validate(true)) {
+            var events = localStorage.getItem('events') === null ? {} : JSON.parse(localStorage.getItem('events'));
+            var id = localStorage.getItem('nextID') === null ? "1" : localStorage.getItem('nextID');
+            events[id] = {'name': $("#name").val(), 'date': $("#date").val(), 'time': $("#hour").val()};
+            idnum = id;
+            localStorage.setItem('events', JSON.stringify(events));
+            localStorage.setItem('setCurrentDate', $("#date").val());
+            localStorage.setItem('nextID', String(Number(id) + 1));
             $(".icon_wrapper_index").empty();
-            $(".icon_wrapper_index").append('<h1>Lista de convidados</h1><table><thead><tr><th>NOME</th>' +
-                '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
-                'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
-                '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                '<button type="button" class="btn-primary btn-md"  style="width:100px; id="convidar">Convidar</button>');
-            $("#addImage").click(function(){renderAddContacts()});
-            $("#addText").click(function(){renderAddContacts()});
-            $("body").on("click", ".delContact", function(){
-                var delID = $(this).parent().prop('id');
-                chosenContacts.splice(chosenContacts.indexOf(delID), 1);
-                $("#" + delID).parent().remove();
-                refreshTotalInvites();
+            $(".icon_wrapper_index").append('<h1>Deseja fazer os convites para o evento?</h1>' +
+                '<button type="button" style="width:100px" class="btn-primary btn-md" id="yes">Sim</button><button type="button" ' +
+                'class="btn-primary btn-md" style="width:100px" id="no">Não</button>');
+            $("#yes").click(function(){
+                $(".icon_wrapper_index").empty();
+                $(".icon_wrapper_index").append('<h1>Lista de convidados</h1><table><thead><tr><th>NOME</th>' +
+                    '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
+                    'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
+                    '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
+                    '<button type="button" class="btn-primary btn-md"  style="width:100px; id="convidar">Convidar</button>');
+                $("#addImage").click(function(){
+                    if (!$(".contacts-wrapper").length) renderAddContacts()
+                });
+                $("#addText").click(function(){
+                    if (!$(".contacts-wrapper").length) renderAddContacts()
+                });
+                $("body").on("click", ".delContact", function(){
+                    var delID = $(this).parent().prop('id');
+                    chosenContacts.splice(chosenContacts.indexOf(delID), 1);
+                    $("#" + delID).parent().remove();
+                    refreshTotalInvites();
+                });
+                $("#convidar").click(function(){
+                    var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
+                    invites[idnum] = chosenContacts;
+                    localStorage.setItem('invites', JSON.stringify(invites));
+                    location.replace('calendar.html');
+                });
             });
-            $("#convidar").click(function(){
-                var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
-                invites[idnum] = chosenContacts;
-                localStorage.setItem('invites', JSON.stringify(invites));
+            $("#no").click(function(){
                 location.replace('calendar.html');
             });
-        });
-        $("#no").click(function(){
-           location.replace('calendar.html');
-        });
+        }
     });
-
-    $("#name, #date, #hour").change(validate);
+    $("#name, #date, #hour").change(function(){validate(false)});
 
 }
 

@@ -50,11 +50,12 @@ function addTask() {
         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
         "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><button type='button' id='agendar' class='btn-primary btn-md disabled' style='width:100px'" +
         ">Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+    $("#taskDate, #taskName, #taskTime").change(function(){validate(false)});
     $("#cancelTask").click(function () {
         $(".add-task-wrapper").remove()
     });
     $("#agendar").click(function () {
-        if (validate()) {
+        if (validate(true)) {
             var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
             var taskObj = {
                 'name': $("#taskName").val(), 'date': $("#taskDate").val(),
@@ -115,7 +116,7 @@ function addTask() {
         }
     });
     $(".small-images").click(function () {
-        $("#division-choice").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'})
+        $("#division-choice").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
         division = $(this).prop('src').split('/');
         division = division[division.length - 1].split('.')[0];
         renderDivision(division);
@@ -206,37 +207,45 @@ function updateTimeUI() {
     $("#dateTime").text(date.toLocaleTimeString());
 }
 
-function validate() {
+function validate(visual) {
     var ret = true;
     if ($("#division-setting-dropdown").length) {
         if ($("#division-setting-dropdown").find(":selected")[0].innerText === 'Escolha uma tarefa') {
-            //$("#division-setting-dropdown").css({'border': '2px solid red', 'border-radius': '20px',
-            //'animation': 'border-pulse 3s infinite'});
-            $(".division-settings").css({
-                'border': '2px solid red', 'border-radius': '20px',
-                'animation': 'border-pulse 3s infinite'
-            });
+            if (visual) {
+                $(".division-settings").css({
+                    'border': '2px solid red', 'border-radius': '20px',
+                    'animation': 'border-pulse 3s infinite'
+                });
+            }
             ret = false;
         }
         else {
-            $(".division-settings").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
+            if (visual) {
+                $(".division-settings").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
+            }
         }
-        $("#division-choice").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
+        if (visual) {
+            $("#division-choice").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
+        }
     }
     else {
-        if ($("#division-choice").css('borderTopColor') !== "rgba(255, 0, 0)") {
-            $("#division-choice").css({
-                'border': '2px solid red', 'border-radius': '20px',
-                'animation': 'border-pulse 3s infinite'
-            });
+        if (visual) {
+            if ($("#division-choice").css('borderTopColor') !== "rgba(255, 0, 0)") {
+                $("#division-choice").css({
+                    'border': '2px solid red', 'border-radius': '20px',
+                    'animation': 'border-pulse 3s infinite'
+                });
+            }
         }
     }
     if ($('#taskName').val().length > 0 && $('#taskDate').val().length > 0 && $('#taskTime').val().length > 0) {
         if (moment($("#taskDate").val()).isBefore(moment())) {
             ret = false;
-            if (!$("#errorDateBefore").length) {
-                $("#dateGroup").addClass("has-error");
-                $("<span id='errorDateBefore' class='help-block'>Não pode escolher uma data no passado</span>").insertAfter("#taskDate");
+            if (visual) {
+                if (!$("#errorDateBefore").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='errorDateBefore' class='help-block'>Não pode escolher uma data no passado</span>").insertAfter("#taskDate");
+                }
             }
         } else {
             if ($("#errorDateBefore").length) {
@@ -246,9 +255,11 @@ function validate() {
         }
         if (!moment($("#taskDate").val()).isBefore(moment()) && $("#taskDate").val().split("-")[0].length > 4) {
             ret = false;
-            if (!$("#errorYear").length) {
-                $("#dateGroup").addClass("has-error");
-                $("<span id='errorYear' class='help-block'>Não pode escolher um ano acima de 4 digitos</span>").insertAfter("#taskDate");
+            if (visual) {
+                if (!$("#errorYear").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='errorYear' class='help-block'>Não pode escolher um ano acima de 4 digitos</span>").insertAfter("#taskDate");
+                }
             }
         } else {
             if ($("#errorYear").length) {
@@ -258,20 +269,25 @@ function validate() {
         }
     } else {
         if (!$("#taskName").val().length) {
-            if (!$("#noNameError").length) {
-                $("#nameGroup").addClass("has-error");
-                $("<span id='noNameError' class='help-block'>Escolha um nome</span>").insertAfter("#taskName");
+            if (visual) {
+                if (!$("#noNameError").length) {
+                    $("#nameGroup").addClass("has-error");
+                    $("<span id='noNameError' class='help-block'>Escolha um nome</span>").insertAfter("#taskName");
+                }
             }
-        } else {
+        }
+        else {
             if ($("#noNameError").length) {
                 $("#nameGroup").removeClass("has-error");
                 $("#noNameError").remove();
             }
         }
         if (!$("#taskDate").val().length) {
-            if (!$("#noDateError").length) {
-                $("#dateGroup").addClass("has-error");
-                $("<span id='noDateError' class='help-block'>Escolha uma data</span>").insertAfter("#taskDate");
+            if (visual) {
+                if (!$("#noDateError").length) {
+                    $("#dateGroup").addClass("has-error");
+                    $("<span id='noDateError' class='help-block'>Escolha uma data</span>").insertAfter("#taskDate");
+                }
             }
         } else {
             if ($("#noDateError").length) {
@@ -280,9 +296,11 @@ function validate() {
             }
         }
         if (!$("#taskTime").val().length) {
-            if (!$("#noTimeError").length) {
-                $("#timeGroup").addClass("has-error");
-                $("<span id='noTimeError' class='help-block'>Escolha uma hora</span>").insertAfter("#taskTime");
+            if (visual) {
+                if (!$("#noTimeError").length) {
+                    $("#timeGroup").addClass("has-error");
+                    $("<span id='noTimeError' class='help-block'>Escolha uma hora</span>").insertAfter("#taskTime");
+                }
             }
         } else {
             if ($("#noTimeError").length) {
@@ -291,6 +309,12 @@ function validate() {
             }
         }
         ret = false;
+    }
+    if (ret) {
+        if ($("#agendar").hasClass("disabled")) $("#agendar").removeClass("disabled");
+    }
+    else {
+        if (!$("#agendar").hasClass("disabled")) $("#agendar").addClass("disabled");
     }
     return ret;
 }
@@ -385,10 +409,14 @@ function main() {
                         '<button type="button" class="btn-primary btn-md" id="convidar" style="width:100px;">Convidar</button>' +
                         '<button type="button" class="btn-primary btn-md" id="exitInvite" style="width:100px;">Sair</button>');
                     $("#addImage").click(function () {
-                        renderAddContacts()
+                        if (!$(".contacts-wrapper").length){
+                            renderAddContacts()
+                        }
                     });
                     $("#addText").click(function () {
-                        renderAddContacts()
+                        if (!$(".contacts-wrapper").length) {
+                            renderAddContacts()
+                        }
                     });
                     $("body").on("click", ".delContact", function () {
                         var delID = $(this).parent().prop('id');
@@ -431,20 +459,25 @@ function main() {
                     $("#Calendar").hide();
                     $("#exitEditEvent").click(function () {
                         $(".editEventDiv").remove();
+                        if ($(".add-task-wrapper").length) {
+                            $(".add-task-wrapper").remove();
+                        }
                         $("#Calendar").show();
                     });
                     renderTasks();
                     $("#addTaskText").click(function () {
-                        addTask();
-                        $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
-                        keyboardAppear();
-
+                        if (!$(".add-task-wrapper").length) {
+                            addTask();
+                            $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
+                            keyboardAppear();
+                        }
                     });
                     $("#addTask").click(function () {
-                        addTask();
-                        $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
-                        keyboardAppear();
-
+                        if (!$(".add-task-wrapper").length) {
+                            addTask();
+                            $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
+                            keyboardAppear();
+                        }
                     });
 
 
@@ -457,28 +490,32 @@ function main() {
                         localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
                     });
                     $("body").on('click', '.editTask', function () {
-                        var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
-                        var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
-                        $(".ui-wrapper").append("<div class='container icon_wrapper_index add-task-wrapper' style='z-index:10'>" +
-                            "<div class='row add-task-row'><div class='col-md-6'><h1>Escolha zona da casa:</h1><div class='row'>" +
-                            "<div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/quarto.svg' class='small-images'></div>" +
-                            "<div class='col-md-2'><img src='assets/imgs/sala.svg' class='small-images'></div><div class='col-md-2'>" +
-                            "<img src='assets/imgs/casaDeBanho.svg' class='small-images'></div><div class='col-md-2'></div></div>" +
-                            "<div class='row'><div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/cozinha.png' " +
-                            "class='small-images'></div><div class='col-md-2'><img src='assets/imgs/escritorio.svg' class='small-images'>" +
-                            "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
-                            "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
-                            "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
-                            "<span style='color:red'>*</span>:</label><input type='text' class='form-control keyboardNeed'" +
-                            " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
-                            "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
-                            "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
-                            "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
-                            "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
-
-                        renderDivision(eventTasks[eventHolder.id][taskID]['division']);
-                        $("#division-setting-dropdown").val(eventTasks[eventHolder.id][taskID]['type']);
-                        $("#division-setting-dropdown").trigger('change');
+                        if (!$(".add-task-wrapper").length) {
+                            var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
+                            var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
+                            $(".ui-wrapper").append("<div class='container icon_wrapper_index add-task-wrapper' style='z-index:10'>" +
+                                "<div class='row add-task-row'><div class='col-md-6'><h1>Escolha zona da casa:</h1><div class='row'>" +
+                                "<div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/quarto.svg' class='small-images'></div>" +
+                                "<div class='col-md-2'><img src='assets/imgs/sala.svg' class='small-images'></div><div class='col-md-2'>" +
+                                "<img src='assets/imgs/casaDeBanho.svg' class='small-images'></div><div class='col-md-2'></div></div>" +
+                                "<div class='row'><div class='col-md-2'></div><div class='col-md-2'><img src='assets/imgs/cozinha.png' " +
+                                "class='small-images'></div><div class='col-md-2'><img src='assets/imgs/escritorio.svg' class='small-images'>" +
+                                "</div><div class='col-md-2'><img src='assets/imgs/jardim.svg' class='small-images'></div>" +
+                                "<div class='col-md-2'></div></div></div><div class='col-md-3 division-settings'></div><div class='col-md-3 " +
+                                "name-settings'><div class='form-group' id='nameGroup'><label for='taskName'>Nome da tarefa" +
+                                "<span style='color:red'>*</span>:</label><input type='text' class='form-control keyboardNeed'" +
+                                " id='taskName' placeholder='Máx. 80 caracteres' maxlength='80'></div><div class='form-group' id='dateGroup'>" +
+                                "<label for='taskDate'>Data<span style='color:red'>*</span>:</label><input type='date' id='taskDate' class='form-group'>" +
+                                "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
+                                "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
+                                "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+                            renderDivision(eventTasks[eventHolder.id][taskID]['division']);
+                            $("#division-setting-dropdown").val(eventTasks[eventHolder.id][taskID]['type']);
+                            $("#taskDate").val(eventTasks[eventHolder.id][taskID]['date']);
+                            $("#taskName").val(eventTasks[eventHolder.id][taskID]['name']);
+                            $("#taskTime").val(eventTasks[eventHolder.id][taskID]['time']);
+                            $("#division-setting-dropdown").trigger('change');
+                        }
                     });
                 });
             } else {

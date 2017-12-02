@@ -32,13 +32,18 @@ function foodPurchase() {
     $(".foodPurchase").append('<button type="button" class="btn-primary btn-md" id="encomendar" style="width:150px;margin-left: 53px;margin-top: 37px;">Encomendar</button>');
     $("#encomendar").click(function(){
         $(".foodPurchase").remove();
-        $(".division-settings").append("<h4>Encomendas</h4><ul id='encomendaResult'></ul>");
+        $(".orderRender").remove();
+        $(".division-settings").append("<div class='orderRender'><h4>Encomendas</h4><ul id='encomendaResult'></ul></div>");
         for (var item in foodQuantity) {
             if (foodQuantity[item] > 0) {
                 $("#encomendaResult").append("<li>" + item + ': ' + foodQuantity[item] + 'kg');
             }
 
         }
+        $(".orderRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='orderRenderButton'>Adicionar outros alimentos</button>");
+        $("#orderRenderButton").click(function(){
+           foodPurchase();
+        });
     });
     $(".foodLi").click(function (e) {
         if (currentTarget === e.target && $(".quantity").length) {
@@ -89,13 +94,18 @@ function meal() {
     $(".meal").append('<button type="button" class="btn-primary btn-md" id="encomendar" style="width:150px;margin-left: 53px;margin-top: 37px;">Encomendar</button>');
     $("#encomendar").click(function(){
         $(".meal").remove();
-        $(".division-settings").append("<h4>Refeições</h4><ul id='encomendaResult'></ul>");
+        $(".mealRender").remove();
+        $(".division-settings").append("<div class='mealRender'><h4>Refeições</h4><ul id='encomendaResult'></ul></div>");
         for (var item in mealQuantity) {
             if (mealQuantity[item] > 0) {
                 $("#encomendaResult").append("<li>" + item + ': ' + mealQuantity[item] + ' Pessoas');
             }
 
         }
+        $(".mealRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='mealRenderButton'>Adicionar refeições</button>");
+        $("#mealRenderButton").click(function(){
+            meal();
+        });
     });
     $(".mealLi").click(function (e) {
         if (currentTarget === e.target && $(".quantity").length) {
