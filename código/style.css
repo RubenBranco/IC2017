@@ -34,6 +34,12 @@
     float:right;
 }
 
+.profile-pic {
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+}
+
 .table {
     border-collapse: collapse;
     width: 142px;

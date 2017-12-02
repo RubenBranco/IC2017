@@ -336,32 +336,6 @@ function main() {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
-    var contacts = localStorage.getItem('contacts');
-    var events = localStorage.getItem('events');
-    if (contacts === null) {
-        contacts = {
-            "1": {"name": "Amigos Casamento(Grupo)", "size": 60},
-            "2": {"name": "Ana", "size": 1},
-            "3": {
-                "name": "António",
-                "size": 1
-            },
-            "4": {"name": "Bernardo", "size": 1},
-            "5": {"name": "Bonifácio", "size": 1},
-            "6": {"name": "Bóris", "size": 1},
-            "7": {"name": "Carolina", "size": 1},
-            "8": {"name": "Claudia", "size": 1},
-            "9": {"name": "Familia(Grupo", "size": 40},
-            "10": {"name": "Ruben", "size": 1},
-            "11": {"name": "João", "size": 1}
-        };
-        localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
-    if (events === null) {
-        events = {"1": {"name": "Jantar de Amigos", "date": "2017-12-01", "time": "19:00"}};
-        localStorage.setItem("events", JSON.stringify(events));
-        localStorage.setItem("nextID", "2");
-    }
     $("#Calendar").fullCalendar({
         customButtons: {
             create: {
