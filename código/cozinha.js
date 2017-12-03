@@ -40,6 +40,11 @@ function main(){
                 localStorage.setItem('loicaState', state);
             });
     });
+    $("#mesa").click(function(){
+       $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Meter a mesa" +
+           "</h1><button class='btn-primary btn-md' id='popup-close'>Fechar</button>" +
+           "<div class='row'><label>Número de pessoas <input type='text' class='form-control mesa'></label></div></div></div></div>");
+    });
 }
 
 $(document).ready(function(){main()});

@@ -28,10 +28,10 @@ function main() {
             var events = {"1": {"name": "Jantar de Amigos", "date": "2017-12-01", "time": "19:00"}};
             localStorage.setItem("events", JSON.stringify(events));
             localStorage.setItem("nextID", "2");
-            localStorage.setItem("cenario", "joao");
+            localStorage.setItem("cenario", "João");
         }
         else if (id === 'maria') {
-            localStorage.setItem("cenario", "maria");
+            localStorage.setItem("cenario", "Maria");
         }
         else if (id === "casal") {
             var contacts = {
@@ -51,10 +51,11 @@ function main() {
                 "11": {"name": "João", "size": 1}
             };
             localStorage.setItem("contacts", JSON.stringify(contacts));
-            localStorage.setItem("cenario", "casal");
+            localStorage.setItem("cenario", "Fernandes");
         } else {
-            localStorage.setItem("cenario", "outro");
+            localStorage.setItem("cenario", "Convidado");
         }
+        location.replace("index.html");
     });
 }
 

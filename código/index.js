@@ -17,6 +17,7 @@ function main(){
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+    $("#userWelcome").text($("#userWelcome").text() + localStorage.getItem("cenario"));
 }
 
 $(document).ready(function(){main()});

@@ -25,7 +25,7 @@ function main() {
         $("#popup-close").click(function () {
             $("#popup-close").unbind('click');
             $(".pop-up").remove();
-            if (localStorage.getItem("cenario") === 'maria') {
+            if (localStorage.getItem("cenario") === 'Maria') {
                 $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>E-mail de confirmação enviado' +
                     '</h1><button class="btn-primary btn-md" id="popup-close1">Fechar</button></div></div></div>');
                 $("#popup-close1").click(function () {
