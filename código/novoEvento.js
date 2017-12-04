@@ -61,7 +61,7 @@ function updateTimeUI() {
 function validate(visual) {
     var ret = true;
     if ($('#name').val().length > 0 && $('#date').val().length > 0 && $('#hour').val().length > 0) {
-        if (moment($("#date").val()).isBefore(moment())) {
+        if (!moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0))) {
             ret = false;
             if (visual) {
                 if (!$("#errorDateBefore").length) {
@@ -75,7 +75,7 @@ function validate(visual) {
                 $("#errorDateBefore").remove();
             }
         }
-        if (!moment($("#date").val()).isBefore(moment()) && $("#date").val().split("-")[0].length > 4) {
+        if (moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0)) && $("#date").val().split("-")[0].length > 4) {
             ret = false;
             if (visual) {
                 if (!$("#errorYear").length) {
@@ -184,7 +184,7 @@ function main() {
                     '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
                     'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
                     '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                    '<button type="button" class="btn-primary btn-md"  style="width:100px; id="convidar">Convidar</button>');
+                    '<button type="button" class="btn-primary btn-md"  style="width:100px;" id="convidar">Convidar</button>');
                 $("#addImage").click(function(){
                     if (!$(".contacts-wrapper").length) renderAddContacts()
                 });

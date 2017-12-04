@@ -167,13 +167,6 @@ function renderContacts() {
     refreshTotalInvites();
 }
 
-function contacts() {
-    localStorage.setItem('contacts', JSON.stringify({
-        "1": {'name': 'Ze', 'size': 1},
-        "2": {'name': 'amigos casamento', 'size': 89}
-    }));
-}
-
 function renderAddContacts() {
     var contacts = localStorage.getItem('contacts') === null ? {} : JSON.parse(localStorage.getItem('contacts'));
     $(".icon_wrapper_index").append('<div class="container contacts-wrapper" style="height:500px;width:200px;z-index:10;"><h1>CONTACTOS</h1><div class="container contacts"></div></div>');
@@ -238,7 +231,7 @@ function validate(visual) {
         }
     }
     if ($('#taskName').val().length > 0 && $('#taskDate').val().length > 0 && $('#taskTime').val().length > 0) {
-        if (moment($("#taskDate").val()).isBefore(moment())) {
+        if (!moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0))) {
             ret = false;
             if (visual) {
                 if (!$("#errorDateBefore").length) {
@@ -252,7 +245,7 @@ function validate(visual) {
                 $("#errorDateBefore").remove();
             }
         }
-        if (!moment($("#taskDate").val()).isBefore(moment()) && $("#taskDate").val().split("-")[0].length > 4) {
+        if (moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0)) && $("#taskDate").val().split("-")[0].length > 4) {
             ret = false;
             if (visual) {
                 if (!$("#errorYear").length) {
@@ -381,14 +374,21 @@ function main() {
                         '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
                         '<button type="button" class="btn-primary btn-md" id="convidar" style="width:100px;">Convidar</button>' +
                         '<button type="button" class="btn-primary btn-md" id="exitInvite" style="width:100px;">Sair</button>');
+                    var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
+                    if (invites.hasOwnProperty(idnum)) {
+                        for (var i = 0; i < invites[idnum].length; i++) {
+                            chosenContacts.push(invites[idnum][i]);
+                        }
+                    }
+                    renderContacts();
                     $("#addImage").click(function () {
                         if (!$(".contacts-wrapper").length){
-                            renderAddContacts()
+                            renderAddContacts();
                         }
                     });
                     $("#addText").click(function () {
                         if (!$(".contacts-wrapper").length) {
-                            renderAddContacts()
+                            renderAddContacts();
                         }
                     });
                     $("body").on("click", ".delContact", function () {
@@ -413,7 +413,12 @@ function main() {
                 $("#deleteEvent").click(function () {
                     var events = JSON.parse(localStorage.getItem('events'));
                     delete events[event.id];
+                    var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
+                    if (invites.hasOwnProperty(event.id)) {
+                        delete invites[event.id];
+                    }
                     localStorage.setItem('events', JSON.stringify(events));
+                    localStorage.setItem("invites", JSON.stringify(invites));
                     $("#Calendar").fullCalendar('removeEvents', event.id);
                     $(".eventClickNav").remove();
                 });
@@ -521,7 +526,6 @@ function main() {
         history.back();
     });
 }
-// test
 
 $(document).ready(function () {
     main()
