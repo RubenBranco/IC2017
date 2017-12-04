@@ -38,6 +38,7 @@
     height: 150px;
     width: 150px;
     cursor: pointer;
+    border-radius: 75px;
 }
 
 .table {
@@ -312,8 +313,10 @@ input:checked + .slider:before {
 
 .nav-pills>li>a {
     border-radius: 0px;
+    height: 44px;
+    font-size: 16pt;
+    padding-top: 5px;
 }
-
 a {
     color: #324a5e;
     font-weight: 600;
@@ -463,4 +466,13 @@ a {
     top: 534px;
     left: 424px;
     z-index: 101;
+}
+
+.login {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.login_container {
+    margin-top: 120px;
 }

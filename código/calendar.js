@@ -23,7 +23,6 @@ function renderDivision(division) {
         $(".division-settings").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
         if ($(".division-settings").children().length > 2) {
             $(".division-settings").children().each(function () {
-                console.log($(this));
                 if ($(this).prop('id') !== 'division-setting-dropdown' && !$(this).hasClass("select2")) {
                     $(this).remove();
                 }
