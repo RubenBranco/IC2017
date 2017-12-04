@@ -137,15 +137,15 @@ header{
 }
 
 #popup-close{
-    position: absolute;
-    bottom: 300px;
-    left: 158px;
+    position: relative;
+    bottom: -236px;
+    left: -16px;
     width: 100px;
     text-align: center;
 }
 
 #popup-close1{
-    position: absolute;
+    position: relative;
     bottom: 300px;
     left: 158px;
     width: 100px;
@@ -323,10 +323,10 @@ a {
 }
 
 #Calendar {
-    width: 75%;
-    position: absolute;
-    top: 270px;
-    left: 185px;
+    width: 84%;
+    position: relative;
+    top: 103px;
+    left: 84px;
     background: #9de5fb;
     padding: 5px;
     border-radius: 5px;
@@ -461,9 +461,9 @@ a {
     top: -308px;
 }
 
-.keyboard{
-    position: absolute;
-    top: 534px;
+.keyboard {
+    position: relative;
+    top: -26px;
     left: 424px;
     z-index: 101;
 }
@@ -475,4 +475,7 @@ a {
 
 .login_container {
     margin-top: 120px;
+}
+.alert {
+    margin-bottom: 0px;
 }

@@ -371,7 +371,7 @@ function main() {
                         '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
                         'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
                         '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                        '<button type="button" class="btn-primary btn-md" id="convidar" style="width:100px;">Convidar</button>' +
+                        '<button type="button" class="btn-primary btn-md" id="convidar" data-toggle="modal" data-target="#myModal" style="width:100px;">Convidar</button>' +
                         '<button type="button" class="btn-primary btn-md" id="exitInvite" style="width:100px;">Sair</button>');
                     var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
                     if (invites.hasOwnProperty(idnum)) {
@@ -429,8 +429,8 @@ function main() {
                         $(".eventClickNav").remove();
                     }
                     $(".ui-wrapper").append('<div class="container icon_wrapper_index editEventDiv" style="z-index:10;">' +
-                        '<h1>Lista de Tarefas</h1><table><thead><tr><th style="padding-right:20px;">NOME</th><th style="padding-right:20px;">DATA</th><th style="padding-right:20px;">' +
-                        'HORA</th><th style="padding-right:20px;">EVENTO</th><th>OPÇÕES</th></tr></thead><tbody><tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
+                        '<h1>Lista de Tarefas</h1><table><thead><tr><th style="padding-right:80px;">NOME</th><th style="padding-right:80px;">DATA</th><th style="padding-right:80px;">' +
+                        'HORA</th><th style="padding-right:80px;">EVENTO</th><th>OPÇÕES</th></tr></thead><tbody><tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
                         ';cursor:pointer;" src="assets/imgs/add-task.svg"> <span id="addTaskText" style="cursor:pointer">' +
                         'Adicionar Tarefas</span></td></tr></tbody></table><button type="button" style="width:100px;" class="btn-primary btn-md" id="exitEditEvent">Sair</button></div>');
                     $("#Calendar").hide();
@@ -524,6 +524,10 @@ function main() {
     $("#back").click(function () {
         history.back();
     });
+    if (localStorage.getItem('convidados') === "True"){
+        $('#myModal').modal('show');
+        localStorage.setItem("convidados", "False");
+    }
 }
 
 $(document).ready(function () {

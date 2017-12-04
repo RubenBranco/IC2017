@@ -184,7 +184,7 @@ function main() {
                     '<th>NÚMERO DE PESSOAS</th></tr></thead><tbody><tr id="addTr"><td><img id="addImage" style="height:24px;width:24px;cursor:pointer" ' +
                     'src="assets/imgs/add.svg"> <span id="addText" style="cursor:pointer">Adicionar Pessoas</span>' +
                     '</td></tr></tbody><tfoot><tr><td>TOTAL</td><td id="totalInvites">0</td></tr></tfoot></table>' +
-                    '<button type="button" class="btn-primary btn-md"  style="width:100px;" id="convidar">Convidar</button>');
+                    '<button type="button" class="btn-primary btn-md" style="width:100px;" id="convidar">Convidar</button>');
                 $("#addImage").click(function(){
                     if (!$(".contacts-wrapper").length) renderAddContacts()
                 });
@@ -201,6 +201,7 @@ function main() {
                     var invites = localStorage.getItem('invites') === null ? {} : JSON.parse(localStorage.getItem('invites'));
                     invites[idnum] = chosenContacts;
                     localStorage.setItem('invites', JSON.stringify(invites));
+                    localStorage.setItem("convidados", "True");
                     location.replace('calendar.html');
                 });
             });
@@ -210,7 +211,7 @@ function main() {
         }
     });
     $("#name, #date, #hour").change(function(){validate(false)});
-
+    
 }
 
 $(document).ready(function(){main()});
