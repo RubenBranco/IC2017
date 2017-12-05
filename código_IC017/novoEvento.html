@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/libs/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='assets/libs/moment.min.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="novoEvento.js"></script>
+</head>
+<body>
+    <div class="container ui-wrapper">
+        <header class="header">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="#" id="back"><span class="glyphicon glyphicon-chevron-left" ></span>Anterior</a></li>
+                <li role="presentation" id="help"><a href="help.html"><img src="assets/imgs/help.svg"></a></li>
+            </ul>
+             <div class="img-div">
+                <img id="headerDivision_cal" src="assets/imgs/calendario.png">
+                <span class="nomeDivis_cal">Calendario</span>
+            </div>
+            <div class="user-info">
+                <table class="table table_cal">
+                    <tbody>
+                        <tr class="dateTr">
+                            <td id="dateDay" class="date"></td>
+                            <td id="dateMonth" class="date"></td>
+                            <td id="dateYear"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="dateTime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </header>
+        <div class="container divisions icon_wrapper_index">
+            <h1>Novo Evento</h1>
+            <form>
+              <div class="form-group" id="nameGroup">
+                  <label for="name">Nome<span style="color:red">*</span>:</label>
+                  <input type="text" class="form-control keyboardNeed" id="name" placeholder="máx. 80 caracteres" maxlength="80">
+              </div>
+              <div class="form-group" id="dateGroup">
+                  <label for="date">Data<span style="color:red">*</span>:</label>
+                  <input type="date" class="form-control keyboardNeed" id="date">
+              </div>
+              <div class="form-group" id="hourGroup">
+                  <label for="hour">Hora<span style="color:red">*</span>:</label>
+                  <input type="time" class="form-control keyboardNeed" id="hour">
+              </div>
+
+                <button class="btn-primary btn-md disabled" type="button" style="width:100px" id="agendar" >Agendar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

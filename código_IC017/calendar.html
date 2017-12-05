@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/libs/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src='assets/libs/moment.min.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="assets/libs/fullcalendar.js"></script>
+    <script src="assets/libs/pt.js"></script>
+    <link rel="stylesheet" href="assets/libs/fullcalendar.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="divisionSettings.js"></script>
+    <script src="calendar.js"></script>
+    
+</head>
+<body>
+    <div class="container ui-wrapper">
+        <header class="header">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="#" id="back"><span class="glyphicon glyphicon-chevron-left" ></span>Anterior</a></li>
+                <li role="presentation" id="help"><a href="help.html"><img src="assets/imgs/help.svg"></a></li>
+            </ul>
+            <div class="img-div">
+                <img id="headerDivision_cal" src="assets/imgs/calendario.png">
+                <span class="nomeDivis_cal">Calendario</span>
+            </div>
+            <div class="user-info">
+                <table class="table table_cal">
+                    <tbody>
+                        <tr class="dateTr">
+                            <td id="dateDay" class="date"></td>
+                            <td id="dateMonth" class="date"></td>
+                            <td id="dateYear"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="dateTime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </header>
+        <div id="Calendar"></div>
+    </div>
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="alert alert-success" role="alert">Convites foram enviados com sucesso!</div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>
