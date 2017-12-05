@@ -462,9 +462,8 @@ a {
 }
 
 .keyboard {
-    position: relative;
-    top: -26px;
-    left: 424px;
+    position: fixed;
+    left:0;
     z-index: 101;
 }
 

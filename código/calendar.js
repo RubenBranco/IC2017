@@ -310,14 +310,10 @@ function validate(visual) {
     return ret;
 }
 
-function keyboardAppear() {
-    $('input[class="form-control keyboardNeed"]').click(function () {
-        $('#keyboard').show();
-    });
-
-    $("div[id='keyboard']").click(function () {
-        $('#keyboard').hide();
-    });
+function keyboardAppear(obj) {
+    $(".ui-wrapper").css({'overflow-y': 'scroll'});
+    $("#keyboard").offset({top: obj.offset().top + 150});
+    $('#keyboard').show();
 }
 
 function main() {
@@ -327,6 +323,10 @@ function main() {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+    $("body").on("click", ".keyboardNeed", function(){
+        keyboardAppear($(this));
+    });
+    $(".ui-wrapper").append("<img id='keyboard' style='display:none; width:1280px; height:216px;' src='./assets/imgs/keyboard.png'>");
     $("#Calendar").fullCalendar({
         customButtons: {
             create: {
@@ -445,15 +445,11 @@ function main() {
                     $("#addTaskText").click(function () {
                         if (!$(".add-task-wrapper").length) {
                             addTask();
-                            $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
-                            keyboardAppear();
                         }
                     });
                     $("#addTask").click(function () {
                         if (!$(".add-task-wrapper").length) {
                             addTask();
-                            $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
-                            keyboardAppear();
                         }
                     });
 
