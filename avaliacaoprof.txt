@@ -8,10 +8,10 @@ Cenário 1
 
 Cenário 2
 -Não dá para fechar o popup de confirmação do email
--mudar um bocado o cenário contextualizar o casamento
--organizar/criar 
--quando criar evento ir para tarefas´
 
 Cenário 3
+-mudar um bocado o cenário contextualizar o casamento
+-organizar/criar 
+-quando criar evento ir para tarefas
 -texto organizar a compra
 -dar para cancelar e undo nas tarefas
