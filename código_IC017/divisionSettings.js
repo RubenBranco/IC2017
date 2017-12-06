@@ -78,9 +78,9 @@ function setTable() {
 }
 
 function dinnerPrep() {
-    $(".division-settings").append("<div class='checkbox'><label>Temperar Ingredientes <input type='checkbox' " +
-        "id='season' value=''></label></div><div class='checkbox'><label>Descongelar Ingredientes " +
-        "<input type='checkbox' id='defrost' value=''></label></div>");
+    $(".division-settings").append("<div class='checkbox'><label><input type='checkbox' " +
+        "id='season' value=''>Temperar Ingredientes </label></div><div class='checkbox'><label>" +
+        "<input type='checkbox' id='defrost' value=''>Descongelar Ingredientes </label></div>");
 }
 
 function meal() {

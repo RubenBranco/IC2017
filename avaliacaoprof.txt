@@ -3,11 +3,8 @@ Implementar Logout
 
 Cenário 1
 -Dizer quantas pessoas
--Data de meter wtv tem de ser no dia ou antes
+-Quando estás a criar uma tarefa para um evento só pode ser criada no dia do evento ou antes até ao dia de hoje
 -Não apareceu o aviso de hora passar o coiso
-
-Cenário 2
--Não dá para fechar o popup de confirmação do email
 
 Cenário 3
 -mudar um bocado o cenário contextualizar o casamento
