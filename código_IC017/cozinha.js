@@ -16,6 +16,9 @@ function main(){
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+    $("#logoutA").click(function(){
+       location.replace("login.html");
+    });
     $("#loica").click(function(){
         $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Máquina Lavar Loiça' +
                                 '</h1><button class="btn-primary btn-md" id="popup-close">Fechar</button>' +

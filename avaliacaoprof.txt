@@ -1,6 +1,3 @@
-Housotron descrever na introdução
-Implementar Logout
-
 Cenário 1
 -Quando estás a criar uma tarefa para um evento só pode ser criada no dia do evento ou antes até ao dia de hoje
 -Não apareceu o aviso de hora passar o coiso

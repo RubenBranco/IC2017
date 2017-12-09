@@ -27,6 +27,10 @@
     float: right;
 }
 
+#logout {
+    float: right;
+    cursor:pointer;
+}
 .user-info {
     width:425px;
     height:100%;

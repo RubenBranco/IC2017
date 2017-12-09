@@ -172,6 +172,9 @@ function main() {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
+    $("#logoutA").click(function(){
+       location.replace("login.html");
+    });
     $("#back").click(function(){
        history.back();
     });

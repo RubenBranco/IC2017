@@ -18,6 +18,9 @@ function main(){
         updateTimeUI();
     }, 1000);
     $("#userWelcome").text($("#userWelcome").text() + localStorage.getItem("cenario"));
+    $("#logoutA").click(function(){
+       location.replace("login.html");
+    });
 }
 
 $(document).ready(function(){main()});
