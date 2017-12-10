@@ -187,7 +187,7 @@ function main() {
             events[id] = {'name': $("#name").val(), 'date': $("#date").val(), 'time': $("#hour").val()};
             idnum = id;
             localStorage.setItem('events', JSON.stringify(events));
-            localStorage.setItem('setCurrentDate', $("#date").val());
+            localStorage.setItem('setCurrentDate', id);
             localStorage.setItem('nextID', String(Number(id) + 1));
             $(".icon_wrapper_index").empty();
             $(".icon_wrapper_index").append('<h1>Deseja fazer os convites para o evento?</h1>' +

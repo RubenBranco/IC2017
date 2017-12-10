@@ -49,7 +49,9 @@ function addTask() {
         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
         "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><button type='button' id='agendar' class='btn-primary btn-md disabled' style='width:100px'" +
         ">Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
-    $("#taskDate, #taskName, #taskTime").change(function(){validate(false)});
+    $("#taskDate, #taskName, #taskTime").change(function () {
+        validate(false)
+    });
     $("#cancelTask").click(function () {
         $(".add-task-wrapper").remove()
     });
@@ -135,7 +137,7 @@ function renderTasks() {
             }
         }
     }
-    if (eventHolder.start.title === 'Jantar de Amigos' && eventsTasks[eventHolder.id] !== undefined) {
+    if ((eventHolder.start.title === 'Jantar de Amigos' || eventHolder.title === 'Jantar de Amigos') && eventsTasks[eventHolder.id] !== undefined) {
         if (Object.keys(eventsTasks[eventHolder.id]).length === 2 && localStorage.getItem("cenario") === "João") {
             $(".ui-wrapper").append("<div class='icon_wrapper_tasks late' style='z-index:99'><p>Atividades propostas ultrapassam a hora do evento!</p><button type='button' class='btn-primary lateButton btn-md'>Adiar o evento e notificar convidades</button></div>");
             $(".lateButton").click(function () {
@@ -230,7 +232,8 @@ function validate(visual) {
         }
     }
     if ($('#taskName').val().length > 0 && $('#taskDate').val().length > 0 && $('#taskTime').val().length > 0) {
-        if (!moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0))) {
+        console
+        if (!moment($("#taskDate").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0))) {
             ret = false;
             if (visual) {
                 if (!$("#errorDateBefore").length) {
@@ -244,7 +247,7 @@ function validate(visual) {
                 $("#errorDateBefore").remove();
             }
         }
-        if (moment($("#date").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0)) && $("#taskDate").val().split("-")[0].length > 4) {
+        if (moment($("#taskDate").val()).isSameOrAfter(moment().hour(0).minute(0).second(0).millisecond(0)) && $("#taskDate").val().split("-")[0].length > 4) {
             ret = false;
             if (visual) {
                 if (!$("#errorYear").length) {
@@ -310,14 +313,14 @@ function validate(visual) {
     return ret;
 }
 
-function keyboardAppear(){
-  $('input[class="form-control keyboardNeed"]').click(function(){
-    $('#keyboard').show();
-  });
+function keyboardAppear() {
+    $('input[class="form-control keyboardNeed"]').click(function () {
+        $('#keyboard').show();
+    });
 
-  $("div[id='keyboard']").click(function(){
-    $('#keyboard').hide();
-  });
+    $("div[id='keyboard']").click(function () {
+        $('#keyboard').hide();
+    });
 }
 
 function main() {
@@ -329,8 +332,8 @@ function main() {
         date.setSeconds(date.getSeconds() + 1);
         updateTimeUI();
     }, 1000);
-    $("#logoutA").click(function(){
-       location.replace("login.html");
+    $("#logoutA").click(function () {
+        location.replace("login.html");
     });
     $("#Calendar").fullCalendar({
         customButtons: {
@@ -386,7 +389,7 @@ function main() {
                     }
                     renderContacts();
                     $("#addImage").click(function () {
-                        if (!$(".contacts-wrapper").length){
+                        if (!$(".contacts-wrapper").length) {
                             renderAddContacts();
                         }
                     });
@@ -432,7 +435,6 @@ function main() {
                         $(".eventClickNav").remove();
                     }
                     else {
-                        console.log("hey");
                         $(".eventClickNav").remove();
                     }
                     $(".ui-wrapper").append('<div class="container icon_wrapper_index editEventDiv" style="z-index:10;">' +
@@ -452,15 +454,15 @@ function main() {
                     $("#addTaskText").click(function () {
                         if (!$(".add-task-wrapper").length) {
                             addTask();
-                             $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
--                            keyboardAppear();
+                            $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
+                            -keyboardAppear();
                         }
                     });
                     $("#addTask").click(function () {
                         if (!$(".add-task-wrapper").length) {
                             addTask();
                             $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
--                            keyboardAppear();
+                            -keyboardAppear();
                         }
                     });
 
@@ -531,11 +533,12 @@ function main() {
     $("#back").click(function () {
         history.back();
     });
-    if (localStorage.getItem('convidados') === "True"){
+    if (localStorage.getItem('convidados') === "True") {
         $('#myModal').modal('show');
         localStorage.setItem("convidados", "False");
     }
 }
+
 function keyboardAppear() {
     $('input[class="form-control keyboardNeed"]').click(function () {
         $('#keyboard').show();
@@ -543,8 +546,9 @@ function keyboardAppear() {
 
     $("div[id='keyboard']").click(function () {
         $('#keyboard').hide();
-   });
+    });
 }
+
 $(document).ready(function () {
     main();
 });

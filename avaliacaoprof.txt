@@ -1,7 +1,3 @@
-Cenário 1
--Quando estás a criar uma tarefa para um evento só pode ser criada no dia do evento ou antes até ao dia de hoje
--Não apareceu o aviso de hora passar o coiso
-
 Cenário 3
 -quando criar evento ir para tarefas
 -dar para cancelar e undo nas tarefas
