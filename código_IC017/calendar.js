@@ -20,6 +20,7 @@ function renderDivision(division) {
         $("#division-setting-dropdown").append("<option value='" + menuLines[i] + "'>" + menuLines[i] + "</option>");
     }
     $("#division-setting-dropdown").on('select2:select', function (e) {
+        $("#taskName").val(e.params.data.text);
         $(".division-settings").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
         if ($(".division-settings").children().length > 2) {
             $(".division-settings").children().each(function () {
@@ -49,6 +50,8 @@ function addTask() {
         "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
         "<input type='time' class='form-control keyboardNeed' id='taskTime'></div><button type='button' id='agendar' class='btn-primary btn-md disabled' style='width:100px'" +
         ">Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+    $("#taskDate").val(moment().format("YYYY-MM-DD"));
+    $("#taskTime").val(moment().format("HH:mm"));
     $("#taskDate, #taskName, #taskTime").change(function () {
         validate(false)
     });

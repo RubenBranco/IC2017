@@ -30,6 +30,14 @@
 #logout {
     float: right;
     cursor:pointer;
+    margin-right: 30px;
+}
+
+#logoutI {
+    position: absolute;
+    right: 55px;
+    top: 10px;
+    width: 24px;
 }
 .user-info {
     width:425px;
