@@ -179,7 +179,14 @@ function main() {
        history.back();
     });
     var newEventDate = localStorage.getItem('newEventDate');
-    $("#date").val(newEventDate);
+    if (newEventDate !== null) {
+        $("#date").val(newEventDate);
+        localStorage.removeItem("newEventDate");
+    }
+    else {
+        $("#date").val(moment().format("YYYY-MM-DD"));
+        $("#hour").val(moment().format("HH:mm"));
+    }
     $("#agendar").click(function(){
         if (validate(true)) {
             var events = localStorage.getItem('events') === null ? {} : JSON.parse(localStorage.getItem('events'));

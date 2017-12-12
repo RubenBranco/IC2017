@@ -1,3 +1,4 @@
 Cenário 3
--quando criar evento ir para tarefas
 -dar para cancelar e undo nas tarefas
+
+eventos quando tenta delete task confirmaçao
