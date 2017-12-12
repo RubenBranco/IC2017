@@ -214,7 +214,7 @@ function renderTasks() {
     }
     if ((eventHolder.start.title === 'Jantar de Amigos' || eventHolder.title === 'Jantar de Amigos') && eventsTasks[eventHolder.id] !== undefined) {
         if (Object.keys(eventsTasks[eventHolder.id]).length === 2 && localStorage.getItem("cenario") === "João") {
-            $(".ui-wrapper").append("<div class='icon_wrapper_tasks late' style='z-index:99'><p>Atividades propostas ultrapassam a hora do evento!</p><button type='button' class='btn-primary lateButton btn-md'>Adiar o evento e notificar convidades</button></div>");
+            $(".ui-wrapper").append("<div class='icon_wrapper_tasks late alert alert-danger' style='z-index:99'><p>Atividades propostas ultrapassam a hora do evento!</p><button type='button' class='btn-primary lateButton btn-md'>Adiar o evento e notificar convidades</button></div>");
             $(".lateButton").click(function () {
                 $(".late").remove()
             });

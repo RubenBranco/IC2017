@@ -500,3 +500,17 @@ a {
 editEventDiv{
     top: -48px;
 }
+
+.late{
+    position: absolute;
+    z-index: 99;
+    padding: 20px;
+    left: 471px;
+    width: 620px;
+    text-align: center;
+    top: 270px;
+}
+
+.lateButton{
+    width: 300px;
+}   
