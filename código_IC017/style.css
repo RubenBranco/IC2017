@@ -45,7 +45,16 @@
     display:inline-block;
     float:right;
 }
+.slider-container{
+    width:80%;
+}
+.slider-container input{
+    width:100%;
+    appearance: none;
+    height: 25px;
+    outline: none;
 
+}
 .profile-pic {
     height: 150px;
     width: 150px;
