@@ -551,16 +551,6 @@ function main() {
     }
 }
 
-function keyboardAppear() {
-    $('input[class="form-control keyboardNeed"]').click(function () {
-        $('#keyboard').show();
-    });
-
-    $("div[id='keyboard']").click(function () {
-        $('#keyboard').hide();
-    });
-}
-
 $(document).ready(function () {
     main();
 });
