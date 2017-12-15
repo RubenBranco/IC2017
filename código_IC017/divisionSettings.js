@@ -27,6 +27,9 @@ function foodPurchase() {
         $(".foodPurchase").append('<ul class="' + item + 'list"></ul>');
         for (var i = 0; i < lists[item].length; i++) {
             $("." + item + "list").append("<li class='foodLi " + lists[item][i] + "' style='cursor:pointer;list-style-type:none;'>" + lists[item][i] + "</li>");
+            if (foodQuantity.hasOwnProperty(lists[item][i]) && foodQuantity[lists[item][i]] > 0) {
+                $("." + lists[item][i]).css({"font-weight": "bold", "color": "white"});
+            }
         }
     }
     $(".foodPurchase").append('<button type="button" class="btn-primary btn-md" id="encomendar" style="width:150px;margin-left: 53px;margin-top: 37px;">Encomendar</button>');
@@ -38,7 +41,6 @@ function foodPurchase() {
             if (foodQuantity[item] > 0) {
                 $("#encomendaResult").append("<li>" + item + ': ' + foodQuantity[item] + 'kg');
             }
-
         }
         $(".orderRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='orderRenderButton'>Adicionar outros alimentos</button>");
         $("#orderRenderButton").click(function(){
@@ -90,6 +92,9 @@ function meal() {
         "</ul></div>");
     for (var i = 0; i < meals.length; i++) {
         $(".mealUL").append("<li class='mealLi " + meals[i] + "' style='cursor:pointer;list-style-type:none;'>" + meals[i] + "</li>");
+        if (mealQuantity.hasOwnProperty(meals[i]) && mealQuantity[meals[i]] > 0) {
+            $("." + meals[i]).css({"font-weight": "bold", "color": "white"});
+        }
     }
     $(".meal").append('<button type="button" class="btn-primary btn-md" id="encomendar" style="width:150px;margin-left: 53px;margin-top: 37px;">Encomendar</button>');
     $("#encomendar").click(function(){
@@ -100,7 +105,6 @@ function meal() {
             if (mealQuantity[item] > 0) {
                 $("#encomendaResult").append("<li>" + item + ': ' + mealQuantity[item] + ' Pessoas');
             }
-
         }
         $(".mealRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='mealRenderButton'>Adicionar refeições</button>");
         $("#mealRenderButton").click(function(){

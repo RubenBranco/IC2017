@@ -60,11 +60,16 @@ function main() {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" +
             "<h1>Ar Condicionado</h1><button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
             "<div class='row'>Estado: <input type='checkbox' id='state'></div>" +
-            "<div class='row slider-container container'><input type='range' min=''</div></div></div></div>");
+            "<div class='row slider-container container'><input type='range' min='16' max='30' value='24' id='temp'>" +
+            "</div></div></div></div>");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
+            localStorage.setItem("temperatureState", $("#temp").val());
             $(".pop-up").remove();
         });
+        if (localStorage.getItem("temperatureState") !== undefined) {
+            $("#temp").val(localStorage.getItem("temperatureState"));
+        }
         $("#state").bootstrapSwitch("size", "mini");
         stateSetter("state", "airconState");
         stateHandler("state", "airconState");

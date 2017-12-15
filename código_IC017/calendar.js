@@ -33,6 +33,72 @@ function renderDivision(division) {
     });
 }
 
+function saveTask() {
+    if (validate(true)) {
+        var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
+        var taskObj = {
+            'name': $("#taskName").val(), 'date': $("#taskDate").val(),
+            'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()
+        };
+        switch (taskObj['type']) {
+            case 'Meter a mesa':
+                taskObj['value'] = $(".mesa").val();
+                break;
+            case 'Comprar alimentos':
+                taskObj['value'] = foodQuantity;
+                break;
+            case 'Tratar do jantar':
+                var vals = [];
+                $("div.division-settings input[type='checkbox']").each(function () {
+                    if ($(this).is(":checked")) {
+                        vals.push($(this).prop("id"));
+                    }
+                });
+                taskObj['value'] = vals;
+                break;
+            case 'Refeição':
+                taskObj['value'] = mealQuantity;
+                break;
+        }
+        if (taskObj['type'] === 'Refeição') {
+            if (localStorage.getItem("cenario") === "Fernandes") {
+                $(".add-task-wrapper").append("<div class='container mealWarn' style='z-index:10;height:400px;width:300px'>" +
+                "<h2>AVISO</h2><p>Não tem ingredientes suficientes para</p><ul><li>Bacalhau com natas</li>" +
+                "<li>Lasanha vegetariana</li></ul><p>Deseja encomendar ingredientes na mercearia local?</p>" +
+                "<button type='button' style='width:100px' id='orderY' class='btn-primary btn-md'>Sim</button>" +
+                "<button type='button' style='width:100px' id='orderN' class='btn-primary btn-md'>Não</button></div>");
+                $("#orderY").click(function () {
+                    if (eventsTasks.hasOwnProperty(eventHolder.id)) {
+                        eventsTasks[eventHolder.id].push(taskObj);
+                    }
+                    else {
+                        eventsTasks[eventHolder.id] = [taskObj];
+                    }
+                    localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+                    $(".add-task-wrapper").remove();
+                    $(".mealWarn").remove();
+                    $(".editEventDiv").show();
+                    renderTasks();
+                });
+                $("#orderN").click(function () {
+                    $(".mealWarn").remove();
+                });
+            }
+        }
+        else {
+            if (eventsTasks.hasOwnProperty(eventHolder.id)) {
+                eventsTasks[eventHolder.id].push(taskObj);
+            }
+            else {
+                eventsTasks[eventHolder.id] = [taskObj];
+            }
+            localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
+            $(".add-task-wrapper").remove();
+            renderTasks();
+            $(".editEventDiv").show();
+        }
+    }
+}
 function editEvent() {
     $(".ui-wrapper").append('<div class="container icon_wrapper_index editEventDiv" style="z-index:10;">' +
         '<h1>Lista de Tarefas</h1><table><thead><tr><th style="padding-right:80px;">NOME</th><th style="padding-right:80px;">DATA</th><th style="padding-right:80px;">' +
@@ -74,6 +140,7 @@ function editEvent() {
     });
     $("body").on('click', '.editTask', function () {
         if (!$(".add-task-wrapper").length) {
+            $(".editEventDiv").hide();
             var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
             var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
             $(".ui-wrapper").append("<div class='container icon_wrapper_index add-task-wrapper' style='z-index:10'>" +
@@ -92,12 +159,68 @@ function editEvent() {
                 "</div><div class='form-group' id='timeGroup'><label for='taskTime'>Hora<span style='color:red'>*</span>:</label>" +
                 "<input type='time' class='form-group' id='taskTime'></div><button type='button' id='scheduleTask' class='btn-primary btn-md' style='width:100px'>" +
                 "Agendar</button><button type='button' id='cancelTask' class='btn-primary btn-md' style='width:100px'>Cancelar</button></div></div></div>");
+            division = eventTasks[eventHolder.id][taskID]['division'];
             renderDivision(eventTasks[eventHolder.id][taskID]['division']);
             $("#division-setting-dropdown").val(eventTasks[eventHolder.id][taskID]['type']);
+            $("#division-setting-dropdown").trigger('change');
+            if (eventTasks[eventHolder.id][taskID]['type'] !== "Refeição" && eventTasks[eventHolder.id][taskID]['type'] !== "Comprar alimentos") {
+                tarefaSettings(eventTasks[eventHolder.id][taskID]['type']);
+            }
             $("#taskDate").val(eventTasks[eventHolder.id][taskID]['date']);
             $("#taskName").val(eventTasks[eventHolder.id][taskID]['name']);
             $("#taskTime").val(eventTasks[eventHolder.id][taskID]['time']);
-            $("#division-setting-dropdown").trigger('change');
+            if (eventTasks[eventHolder.id][taskID]['type'] === 'Tratar do jantar') {
+                var vals = eventTasks[eventHolder.id][taskID]['value'];
+                for (var i = 0; i < vals.length; i++) {
+                    $("#" + vals[i]).prop("checked", true);
+                }
+            }
+            else if (eventTasks[eventHolder.id][taskID]['type'] === "Meter a mesa") {
+                    $(".mesa").val(eventTasks[eventHolder.id][taskID]['value']);
+            } else {
+                if (eventTasks[eventHolder.id][taskID]['type'] === "Comprar alimentos") {
+                    foodQuantity = eventTasks[eventHolder.id][taskID]['value'];
+                    $(".division-settings").append("<div class='orderRender'><h4>Encomendas</h4><ul id='encomendaResult'></ul></div>");
+                    for (var item in foodQuantity) {
+                        if (foodQuantity[item] > 0) {
+                            $("#encomendaResult").append("<li>" + item + ': ' + foodQuantity[item] + 'kg');
+                        }
+                    }
+                    $(".orderRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='orderRenderButton'>Adicionar outros alimentos</button>");
+                    $("#orderRenderButton").click(function(){
+                       foodPurchase();
+                    });
+                } else {
+                    mealQuantity = eventTasks[eventHolder.id][taskID]['value'];
+                    $(".division-settings").append("<div class='mealRender'><h4>Refeições</h4><ul id='encomendaResult'></ul></div>");
+                    for (var item in mealQuantity) {
+                        if (mealQuantity[item] > 0) {
+                            $("#encomendaResult").append("<li>" + item + ': ' + mealQuantity[item] + ' Pessoas');
+                        }
+                    }
+                    $(".mealRender").append("<button type='button' class='btn-primary btn-md' style='width:100px' id='mealRenderButton'>Adicionar refeições</button>");
+                    $("#mealRenderButton").click(function(){
+                        meal();
+                    });
+                }
+            }
+            $("#scheduleTask").click(function () {
+                if (validate(true)) {
+                    eventTasks[eventHolder.id].splice(taskID, 1);
+                    localStorage.setItem("eventsTasks", JSON.stringify(eventTasks));
+                    saveTask();
+                    $("table tbody").empty();
+                    $("table tbody").append('<tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
+                    ';cursor:pointer;" src="assets/imgs/add-task.svg"> <span id="addTaskText" style="cursor:pointer">' +
+                    'Adicionar Tarefas</span></td></tr>');
+                    renderedTasks = [];
+                    renderTasks();
+                }
+            });
+            $("#cancelTask").click(function () {
+                $(".add-task-wrapper").remove();
+                $(".editEventDiv").show();
+            });
         }
     });
 }
@@ -129,67 +252,7 @@ function addTask() {
         $(".editEventDiv").show();
     });
     $("#agendar").click(function () {
-        if (validate(true)) {
-            var eventsTasks = localStorage.getItem('eventsTasks') === null ? {} : JSON.parse(localStorage.getItem('eventsTasks'));
-            var taskObj = {
-                'name': $("#taskName").val(), 'date': $("#taskDate").val(),
-                'time': $("#taskTime").val(), 'division': division, 'type': $("#division-setting-dropdown").val()
-            };
-            switch (taskObj['type']) {
-                case 'Meter a mesa':
-                    taskObj['value'] = $(".mesa").val();
-                    break;
-                case 'Comprar alimentos':
-                    taskObj['value'] = foodQuantity;
-                    break;
-                case 'Tratar do jantar':
-                    var vals = [];
-                    $("div.division-settings input[type='checkbox']").each(function () {
-                        if ($(this).is(":checked")) {
-                            vals.push($(this).prop("id"));
-                        }
-                    });
-                    taskObj['value'] = vals;
-                    break;
-                case 'Refeição':
-                    taskObj['value'] = mealQuantity;
-                    break;
-            }
-            if (taskObj['type'] === 'Refeição') {
-                $(".add-task-wrapper").append("<div class='container mealWarn' style='z-index:10;height:400px;width:300px'>" +
-                    "<h2>AVISO</h2><p>Não tem ingredientes suficientes para</p><ul><li>Bacalhau com natas</li>" +
-                    "<li>Lasanha vegetariana</li></ul><p>Deseja encomendar ingredientes na mercearia local?</p>" +
-                    "<button type='button' style='width:100px' id='orderY' class='btn-primary btn-md'>Sim</button>" +
-                    "<button type='button' style='width:100px' id='orderN' class='btn-primary btn-md'>Não</button></div>");
-                $("#orderY").click(function () {
-                    if (eventsTasks.hasOwnProperty(eventHolder.id)) {
-                        eventsTasks[eventHolder.id].push(taskObj);
-                    }
-                    else {
-                        eventsTasks[eventHolder.id] = [taskObj];
-                    }
-                    localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
-                    $(".add-task-wrapper").remove();
-                    $(".editEventDiv").show();
-                    renderTasks();
-                });
-                $("#orderN").click(function () {
-                    $(".mealWarn").remove();
-                });
-            }
-            else {
-                if (eventsTasks.hasOwnProperty(eventHolder.id)) {
-                    eventsTasks[eventHolder.id].push(taskObj);
-                }
-                else {
-                    eventsTasks[eventHolder.id] = [taskObj];
-                }
-                localStorage.setItem('eventsTasks', JSON.stringify(eventsTasks));
-                $(".add-task-wrapper").remove();
-                renderTasks();
-                $(".editEventDiv").show();
-            }
-        }
+        saveTask();
     });
     $(".small-images").click(function () {
         $("#division-choice").css({'border': 'none', 'border-radius': 'none', 'animation': 'none'});
