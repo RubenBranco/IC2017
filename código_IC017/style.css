@@ -540,4 +540,9 @@ editEventDiv{
 
 .lateButton{
     width: 300px;
-}   
+}
+
+.width200{
+    width: 200px !important;
+    height: 35px;
+}

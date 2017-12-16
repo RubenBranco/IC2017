@@ -132,12 +132,16 @@ function editEvent() {
         addTaskMenu();
     });
     $("body").on('click', '.delTask', function () {
+        $('#myModal1').modal('show');
+    }); 
+    $("#modalDelTarefa").click(function (){
         var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
         var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
         eventTasks[eventHolder.id].splice(taskID, 1);
         $(this).parent().parent().remove();
         renderedTasks.splice(taskID, 1);
         localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
+        $('#myModal1').modal('hide');
     });
     $("body").on('click', '.editTask', function () {
         if (!$(".add-task-wrapper").length) {
