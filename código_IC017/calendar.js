@@ -6,7 +6,7 @@ var idnum;
 var chosenContacts = [];
 var renderedTasks = [];
 var division;
-
+var delTaskEvent;
 
 function renderDivision(division) {
     var menuLines = tarefaMenu(division);
@@ -133,16 +133,8 @@ function editEvent() {
     });
     $("body").on('click', '.delTask', function () {
         $('#myModal1').modal('show');
+        delTaskEvent = $(this);
     }); 
-    $("#modalDelTarefa").click(function (){
-        var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
-        var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
-        eventTasks[eventHolder.id].splice(taskID, 1);
-        $(this).parent().parent().remove();
-        renderedTasks.splice(taskID, 1);
-        localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
-        $('#myModal1').modal('hide');
-    });
     $("body").on('click', '.editTask', function () {
         if (!$(".add-task-wrapper").length) {
             $(".editEventDiv").hide();
@@ -592,6 +584,15 @@ function main() {
                 $(".eventClickNav").remove();
             }
         }
+    });
+    $("#modalDelTarefa").click(function (){
+        var taskID = Number(delTaskEvent.parent().parent().prop('id').split('-')[1]);
+        var eventTasks = JSON.parse(localStorage.getItem('eventsTasks'));
+        eventTasks[eventHolder.id].splice(taskID, 1);
+        delTaskEvent.parent().parent().remove();
+        renderedTasks.splice(taskID, 1);
+        localStorage.setItem('eventsTasks', JSON.stringify(eventTasks));
+        $('#myModal1').modal('hide');
     });
     if (localStorage.getItem('events') !== null) {
         var events = JSON.parse(localStorage.getItem('events'));
