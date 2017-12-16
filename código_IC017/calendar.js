@@ -97,6 +97,16 @@ function saveTask() {
             renderTasks();
             $(".editEventDiv").show();
         }
+        return taskObj;
+    }
+}
+
+function addTaskMenu() {
+    if (!$(".add-task-wrapper").length) {
+        addTask();
+        $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
+        keyboardAppear();
+        $(".editEventDiv").hide();
     }
 }
 function editEvent() {
@@ -111,24 +121,15 @@ function editEvent() {
         if ($(".add-task-wrapper").length) {
             $(".add-task-wrapper").remove();
         }
+        renderedTasks = [];
         $("#Calendar").show();
     });
     renderTasks();
     $("#addTaskText").click(function () {
-        if (!$(".add-task-wrapper").length) {
-            addTask();
-            $(".ui-wrapper").append("<div id='keyboard' style='display:none'  class='keyboard'><img src='./assets/imgs/keyboard.png'</div>");
-            keyboardAppear();
-            $(".editEventDiv").hide();
-        }
+        addTaskMenu();
     });
     $("#addTask").click(function () {
-        if (!$(".add-task-wrapper").length) {
-            addTask();
-            $(".ui-wrapper").append("<div id='keyboard' style='display:none'><img src='./assets/imgs/keyboard.png'</div>");
-            keyboardAppear();
-            $(".editEventDiv").hide();
-        }
+        addTaskMenu();
     });
     $("body").on('click', '.delTask', function () {
         var taskID = Number($(this).parent().parent().prop('id').split('-')[1]);
@@ -190,7 +191,7 @@ function editEvent() {
                     $("#orderRenderButton").click(function(){
                        foodPurchase();
                     });
-                } else {
+                } else if (eventTasks[eventHolder.id][taskID]['type'] === "Refeição") {
                     mealQuantity = eventTasks[eventHolder.id][taskID]['value'];
                     $(".division-settings").append("<div class='mealRender'><h4>Refeições</h4><ul id='encomendaResult'></ul></div>");
                     for (var item in mealQuantity) {
@@ -208,13 +209,12 @@ function editEvent() {
                 if (validate(true)) {
                     eventTasks[eventHolder.id].splice(taskID, 1);
                     localStorage.setItem("eventsTasks", JSON.stringify(eventTasks));
-                    saveTask();
-                    $("table tbody").empty();
-                    $("table tbody").append('<tr id="addTaskTr"><td colspan="5"><img id="addTask" style="height:24px;width:24px' +
-                    ';cursor:pointer;" src="assets/imgs/add-task.svg"> <span id="addTaskText" style="cursor:pointer">' +
-                    'Adicionar Tarefas</span></td></tr>');
-                    renderedTasks = [];
-                    renderTasks();
+                    var taskObj = saveTask();
+                    console.log("taskObj");
+                    $("#Task-" + taskID).empty();
+                    $("#Task-" + taskID).append("<td>" + taskObj['name'] + "</td><td>" + taskObj['date'] + "</td><td>" + taskObj['time'] + "</td><td>" + eventHolder.title + 
+                    "</td><td><img src='assets/imgs/edit.svg' style='height:24px;width:24px;cursor:pointer' class='editTask'> " +
+                    "<img src='assets/imgs/delete.svg' style='height:24px;width:24px;cursor:pointer' class='delTask'></td></tr>");
                 }
             });
             $("#cancelTask").click(function () {

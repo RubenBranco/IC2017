@@ -27,6 +27,20 @@
     float: right;
 }
 
+.help-page {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#help-divisions-img {
+    height: 300px;
+    width: 500px;
+}
+
+#help_cal {
+    height: 24px;
+    width: 24px;
+}
 #logout {
     float: right;
     cursor:pointer;
@@ -321,6 +335,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.escritorioFix {
+    font-size: 145px !important;
 }
 
 .divisions .col-md-2 {

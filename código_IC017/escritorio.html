@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Test</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/libs/bootstrap-switch.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="assets/libs/bootstrap-switch.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
-    <script src="./sala.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="escritorio.js"></script>
 </head>
 <body>
     <div class="container ui-wrapper">
@@ -26,8 +20,8 @@
                 <li role="presentation" id="help"><a href="help.html"><img src="assets/imgs/help.svg"></a></li>
             </ul>
             <div class="img-div">
-                <img id="headerDivision" src="assets/imgs/sala.svg">
-                <span class="nomeDivis">Sala</span>
+                <img id="headerDivision" src="assets/imgs/escritorio.svg">
+                <span class="nomeDivis escritorioFix">Escritorio</span>
             </div>
             <div class="user-info">
                 <table class="table">
@@ -46,44 +40,32 @@
                     <a href="calendar.html"><img id="headerLogo_cal" src="assets/imgs/calendario.png"></a>
                 </div>
             </div>
+
         </header>
-        <div class="container divisions icon_wrapper_sala">
+        <div class="container divisions icon_wrapper_cozinha">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="tv">Televisão</button>
+                    <button type="button" class="btn btn-primary" id="foodInv">Computador</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="console">Consola</button>
+                    <button type="button" class="btn btn-primary">Luzes</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="lights">Luzes</button>
+                    <button type="button" class="btn btn-primary" id="loica"></button>
                 </div>
                 <div class="col-md-2"></div>
             </div>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="sofa">Sofa</button>
+                    <button type="button" class="btn btn-primary">Máquina de Lavar Roupa</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="boxtv">Box TV</button>
+                    <button type="button" class="btn btn-primary">Frigorífico</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" id="aircon">Ar Condicionado</button>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">Estantes</button>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">Aparelhagem</button>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-primary">DVD Player</button>
+                    <button type="button" class="btn btn-primary">Máquina de secar roupa</button>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -100,7 +82,7 @@
     
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="alert alert-info" role="alert"><b>E-mail de confirmação foi enviado para os administradres de sistema</b> Aguarde!</div>
+                    <div class="alert alert-info" role="alert"><b>E-mail de confirmação foi enviado para os administradres de sistema</b>Aguarde!</div>
                 </div>
             </div>
         </div>
