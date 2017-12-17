@@ -101,11 +101,24 @@ function main() {
     $("#lights").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Luzes</h1>" +
             "<button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
-            "<div class='slider-container container'><input type='range' min='1' max='100' value='50' id='lightRange'>" +
-            "</div></div></div></div>");
+            "<div class='slider-container container'><label>1</label><input type='range' min='0' max='100' value='50' id='lightRange'><label>100</label>" +
+            "</div><div id='rangeControl'><i class='material-icons' style='cursor:pointer'>remove_circle</i><input type='number' style='width:50px;' max='100' min='1'><i style='cursor:pointer' class='material-icons'>add_circle</i></div></div></div></div>");
         if (localStorage.getItem('livingRoomLightState') !== undefined) {
             $("#lightRange").val(localStorage.getItem('livingRoomLightState'));
         }
+        $("#rangeControl input").val($("#lightRange").val());
+        $("#rangeControl input").change(function(){
+            $("#lightRange").val($(this).val());
+        });
+        $("#rangeControl i").click(function(){
+            var which = $(this).text();
+            var value = which === "add_circle" ? 1 : -1;
+            var op = Number($("#rangeControl input").val()) + value
+            if (op >= 0 && op <= 100) {
+                $("#rangeControl input").val(String(op));
+                $("#lightRange").val(String(op));
+            }
+        });
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
             localStorage.setItem("livingRoomLightState", $("#lightRange").val());

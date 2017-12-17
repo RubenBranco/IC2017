@@ -2,6 +2,23 @@
 
 var date;
 
+function stateSetter(id, key) {
+    if (localStorage.getItem(key) !== undefined) {
+        if (localStorage.getItem(key) === "true") {
+            $("#" + id).bootstrapSwitch('state', true);
+        }
+        else {
+            $("#" + id).bootstrapSwitch('state', false);
+        }
+    }
+}
+
+function stateHandler(id, stateKey) {
+    $("#" + id).on('switchChange.bootstrapSwitch', function (event, state) {
+        localStorage.setItem(stateKey, String(state));
+    });
+}
+
 function updateTimeUI() {
     $("#dateDay").text(date.getDate() + ' /');
     $("#dateMonth").text(date.getMonth() + 1 + ' /');
@@ -22,6 +39,7 @@ function main() {
     $("#back").click(function () {
         history.back();
     });
+    $("#")
 }
 
 $(document).ready(function(){main()});
