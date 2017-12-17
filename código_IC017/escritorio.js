@@ -102,7 +102,7 @@ function main() {
     });
     $("#frigobar").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" + 
-        "<h1>Frigobar</h1><div class='row'>Estado: <input type='checkbox' id='state'></div></div></div></div>");
+        "<h1>Frigobar</h1><button class='btn-primary btn-md' id='popup-close'>Fechar</button><div class='row'>Estado: <input type='checkbox' id='state'></div></div></div></div>");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
             $(".pop-up").remove();
