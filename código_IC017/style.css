@@ -564,3 +564,28 @@ editEventDiv{
     width: 270px;
     text-align: center;
 }
+
+.popup-container > *{
+    margin-top: 7px;
+}
+
+#rangeControl > .material-icons{
+    font-size: 60px;
+}
+
+#rangeControl > input{
+    width: 113px !important;
+    font-size: 60px;
+}
+
+.minArcon {
+    position: relative;
+    left: -16px;
+    top: 21px;
+}
+
+.maxArcon {
+    position: relative;
+    left: 381px;
+    top: -23px;
+}

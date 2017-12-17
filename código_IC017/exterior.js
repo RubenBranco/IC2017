@@ -112,7 +112,7 @@ function main() {
     $("#lights").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Luzes</h1>" +
             "<button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
-            "<div class='slider-container container'><label>0</label><input type='range' min='0' max='100' value='50' id='lightRange'><label>100</label>" +
+            "<div class='slider-container container'><span class='minArcon'>0</span><input type='range' min='0' max='100' value='50' id='lightRange'><span class='maxArcon'>100</span>" +
             "</div><div id='rangeControl'><i class='material-icons' style='cursor:pointer'>remove_circle</i><input type='number' style='width:50px;' max='100' min='1'><i style='cursor:pointer' class='material-icons'>add_circle</i></div></div></div></div>");
         if (localStorage.getItem('exteriorLightState') !== undefined) {
             $("#lightRange").val(localStorage.getItem('exteriorLightState'));

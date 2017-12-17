@@ -40,7 +40,7 @@ function main() {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" +
             "<h1>Ar Condicionado</h1><button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
             "<div class='row'>Estado: <input type='checkbox' id='state'></div>" +
-            "<div class='row slider-container container'><input type='range' min='16' max='30' value='24' id='temp'>" +
+            "<div class='row slider-container container'><span class='minArcon'>16</span><input type='range' min='16' max='30' value='24' id='temp'><span class='maxArcon'>30</span>" +
             "</div></div></div></div>");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
@@ -57,7 +57,7 @@ function main() {
     $("#lights").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Luzes</h1>" +
             "<button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
-            "<div class='slider-container container'><input type='range' min='1' max='100' value='50' id='lightRange'>" +
+            "<div class='slider-container container'><span class='minArcon'>0</span><input type='range' min='0' max='100' value='50' id='lightRange'><span class='maxArcon'>100</span>" +
             "</div></div></div></div>");
         if (localStorage.getItem('livingRoomLightState') !== undefined) {
             $("#lightRange").val(localStorage.getItem('livingRoomLightState'));
@@ -72,7 +72,7 @@ function main() {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" +
                                 "<h1>Chão</h1><button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
                                 "<div class='row'>Estado: <input type='checkbox' id='stateChao'></div>" +
-                                "<p>Temperatura: </p><div class='row slider-container container'><input type='range' min='16' max='30' value='24' id='tempChao'>" +
+                                "<p>Temperatura: </p><div class='row slider-container container'><span class='minArcon'>16</span><input type='range' min='16' max='30' value='24' id='tempChao'><span class='maxArcon'>30</span>" +
                                 "</div></div></div></div>");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
