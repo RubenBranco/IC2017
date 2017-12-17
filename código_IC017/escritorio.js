@@ -97,7 +97,20 @@ function main() {
             }
         });
     });
-    
+    $("#desk").click(function () {
+        $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Secretária</h1></div></div></div>");
+    });
+    $("#frigobar").click(function () {
+        $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" + 
+        "<h1>Frigobar</h1><div class='row'>Estado: <input type='checkbox' id='state'></div></div></div></div>");
+        $("#popup-close").click(function () {
+            $("#popup-close").unbind("click");
+            $(".pop-up").remove();
+        });
+        $("#state").bootstrapSwitch("size", "mini");
+        stateSetter("state", "frigobarState");
+        stateHandler("state", "frigobarState");
+    });
 }
 
 $(document).ready(function(){main()});
