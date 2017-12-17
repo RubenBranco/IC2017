@@ -100,7 +100,18 @@ function main() {
         });
     });
     $("#desk").click(function () {
-        $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Secretária</h1></div></div></div>");
+        $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Secretária</h1>" +
+            "<button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
+            "<p>Altura: </p><div class='slider-container container'><span class='minArcon'>0</span><input type='range' min='0' max='100' value='50' id='lightRange'><span class='maxArcon'>100</span>" +
+            "</div></div></div></div>");
+        if (localStorage.getItem('DeskState') !== undefined) {
+            $("#lightRange").val(localStorage.getItem('DeskState'));
+        }
+        $("#popup-close").click(function () {
+            $("#popup-close").unbind("click");
+            localStorage.setItem("DeskState", $("#lightRange").val());
+            $(".pop-up").remove();
+        });
     });
     $("#frigobar").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" + 
