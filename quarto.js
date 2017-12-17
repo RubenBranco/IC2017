@@ -49,10 +49,10 @@ function main() {
     });
 
     $("#Cama").click(function(){
-      $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Cama' +
+      $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Chão' +
                               '</h1><button class="btn-primary btn-md" id="popup-close">Fechar</button>' +
                               '<div class="row"><span>Fazer a cama: </span><input type="checkbox" id="state"></div>' +
-                              '<div class="row"><span>Reclinar: </span><input type="checkbox" id="stateR"></div>');
+                              '<div class="row"><span>Reclinar: </span><input type="checkbox" id="state"></div>');
       $("#popup-close").click(function(){
           $("#popup-close").unbind('click');
           $(".pop-up").remove();
@@ -62,13 +62,6 @@ function main() {
                 $("#state").bootstrapSwitch('state', localStorage.getItem('loicaState'));
             }
         $("#state").on('switchChange.bootstrapSwitch', function(event, state){
-            localStorage.setItem('loicaState', state);
-        });
-        $("#stateR").bootstrapSwitch('size', 'mini');
-        if (localStorage.getItem('loicaState') !== undefined) {
-                $("#state").bootstrapSwitch('state', localStorage.getItem('loicaState'));
-            }
-        $("#stateR").on('switchChange.bootstrapSwitch', function(event, state){
             localStorage.setItem('loicaState', state);
         });
     });
