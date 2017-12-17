@@ -93,7 +93,7 @@ function main() {
             ' <div class="row"><span>Estado: </span><input type="checkbox" id="state"></div>' +
             '<div class="row"><span>Canal:</span><select class="canal"><option value="89">89</option>' +
             '<option value="88">88</option><option value="87">87</option></select></div>' +
-            '<div class="row"><button type="button" class="btn-primary btn-md">' +
+            '<div class="row"><button type="button" class="btn-primary btn-md btnGravar">' +
             'Gravar programa atual</button></div></div></div></div>');
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
