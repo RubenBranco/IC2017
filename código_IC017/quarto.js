@@ -45,16 +45,24 @@ function main() {
           $("#popup-close").unbind('click');
           $(".pop-up").remove();
         });
+
     });
 
-    $("#banheira").click(function(){
-      $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Chão' +
+    $("#Cama").click(function(){
+      $(".ui-wrapper").append('<div class="pop-up"><div class="content"><div class="popup-container"><h1>Cama' +
                               '</h1><button class="btn-primary btn-md" id="popup-close">Fechar</button>' +
-                              '<div class="row"><span>Modo de banho</span><select class="inventario"><option value="massa">Relaxante</option>' +
-                              '<option value="arroz">Rápido</option><option value="chocolate">Normal</option></select>');
+                              '<div class="row"><span>Fazer a cama: </span><input type="checkbox" id="state"></div>' +
+                              '<div class="row"><span>Reclinar: </span><input type="checkbox" id="state"></div>');
       $("#popup-close").click(function(){
           $("#popup-close").unbind('click');
           $(".pop-up").remove();
+        });
+        $("#state").bootstrapSwitch('size', 'mini');
+        if (localStorage.getItem('loicaState') !== undefined) {
+                $("#state").bootstrapSwitch('state', localStorage.getItem('loicaState'));
+            }
+        $("#state").on('switchChange.bootstrapSwitch', function(event, state){
+            localStorage.setItem('loicaState', state);
         });
     });
 
