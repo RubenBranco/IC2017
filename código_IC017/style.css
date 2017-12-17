@@ -556,3 +556,11 @@ editEventDiv{
     width: 200px !important;
     height: 35px;
 }
+
+.btnGravar{
+    position: relative;
+    bottom: -16px;
+    left: -2px;
+    width: 270px;
+    text-align: center;
+}
