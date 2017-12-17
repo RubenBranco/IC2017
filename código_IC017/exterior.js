@@ -46,7 +46,6 @@ function main() {
         stateHandler("stateChapSol", "ChapSolState");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("ChapSolState", $("#stateChapSol").val());
             $(".pop-up").remove();
         });
     });
@@ -60,7 +59,6 @@ function main() {
         stateHandler("stateAlarme", "alarmeState");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("stateAlarme", $("#stateAlarme").val());
             $(".pop-up").remove();
         });
     });
@@ -76,10 +74,16 @@ function main() {
         stateHandler("stateRega", "RegaState");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("stateRega", $("#stateRega").val());
             $(".pop-up").remove();
         });
         $(".modoRega").select2();
+        if (localStorage.getItem("regaOption") !== null) {
+            $(".modoRega").val(localStorage.getItem("regaOption"));
+            $(".modoRega").trigger("change");
+        }
+        $(".modoRega").on("select2:select", function(e){
+            localStorage.setItem("regaOption", e.params.data.id);
+        });
     });
     $("#bbq").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'>" +
@@ -93,18 +97,25 @@ function main() {
         stateHandler("statebbq", "BBQState");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("statebbq", $("#statebbq").val());
             $(".pop-up").remove();
         });
         $(".fogo").select2();
+        if (localStorage.getItem("fogoOption") !== null) {
+            $(".fogo").val(localStorage.getItem("fogoOption"));
+            $(".fogo").trigger("change");
+        }
+        $(".fogo").on("select2:select", function(e){
+            localStorage.setItem("fogoOption", e.params.data.id);
+        });
+
     });
     $("#lights").click(function () {
         $(".ui-wrapper").append("<div class='pop-up'><div class='content'><div class='popup-container'><h1>Luzes</h1>" +
             "<button class=\"btn-primary btn-md\" id=\"popup-close\">Fechar</button>" +
-            "<div class='slider-container container'><label>1</label><input type='range' min='0' max='100' value='50' id='lightRange'><label>100</label>" +
+            "<div class='slider-container container'><label>0</label><input type='range' min='0' max='100' value='50' id='lightRange'><label>100</label>" +
             "</div><div id='rangeControl'><i class='material-icons' style='cursor:pointer'>remove_circle</i><input type='number' style='width:50px;' max='100' min='1'><i style='cursor:pointer' class='material-icons'>add_circle</i></div></div></div></div>");
-        if (localStorage.getItem('livingRoomLightState') !== undefined) {
-            $("#lightRange").val(localStorage.getItem('livingRoomLightState'));
+        if (localStorage.getItem('exteriorLightState') !== undefined) {
+            $("#lightRange").val(localStorage.getItem('exteriorLightState'));
         }
         $("#rangeControl input").val($("#lightRange").val());
         $("#rangeControl input").change(function(){
@@ -121,7 +132,7 @@ function main() {
         });
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("livingRoomLightState", $("#lightRange").val());
+            localStorage.setItem("exteriorLightState", $("#lightRange").val());
             $(".pop-up").remove();
         });
     });
@@ -137,10 +148,16 @@ function main() {
         stateHandler("stateAnimalComida", "animalStateComida");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("stateAnimalComida", $("#stateAnimalComida").val());
             $(".pop-up").remove();
         });
         $(".comida").select2();
+        if (localStorage.getItem("comidaOption") !== null) {
+            $(".comida").val(localStorage.getItem("comidaOption"));
+            $(".comida").trigger("change");
+        }
+        $(".comida").on("select2:select", function(e){
+            localStorage.setItem("comidaOption", e.params.data.id);
+        });
     });
 }
 
