@@ -19,7 +19,9 @@ function stateSetter(id, key) {
     if (localStorage.getItem(key) !== undefined) {
         if (localStorage.getItem(key) === "true") {
             $("#" + id).bootstrapSwitch('state', true);
-            pcOnSet();
+            if (key === "PCState") {
+                pcOnSet();
+            }
         }
         else {
             $("#" + id).bootstrapSwitch('state', false);
