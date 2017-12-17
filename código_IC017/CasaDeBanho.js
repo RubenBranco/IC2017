@@ -115,7 +115,7 @@ function main() {
         stateHandler("stateMusica", "MusicaState");
         $("#popup-close").click(function () {
             $("#popup-close").unbind("click");
-            localStorage.setItem("musicaState", $("#tempChao").val());
+            localStorage.setItem("musicaState", $("#stateMusica").val());
             $(".pop-up").remove();
         });
         $(".musica").select2();
