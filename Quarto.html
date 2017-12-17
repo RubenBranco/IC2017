@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/libs/bootstrap-switch.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/libs/bootstrap-switch.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script src="./quarto.js"></script>
+</head>
+<body>
+    <div class="container ui-wrapper">
+        <header class="header">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="index.html"><span class="glyphicon glyphicon-chevron-left" ></span>Anterior</a></li>
+                <li role="presentation" id="logout"><a style= "width:87px; padding-left:35px;" id="logoutA"><img src="assets/imgs/power-button.png" id="logoutI">Sair</a></li>
+                <li role="presentation" id="help"><a href="help.html"><img src="assets/imgs/help.svg"></a></li>
+            </ul>
+            <div class="img-div">
+                <img id="headerDivision" src="assets/imgs/quarto.svg">
+                <span class="nomeDivis">Quarto</span>
+            </div>
+            <div class="user-info">
+                <table class="table">
+                    <tbody>
+                        <tr class="dateTr">
+                            <td id="dateDay" class="date"></td>
+                            <td id="dateMonth" class="date"></td>
+                            <td id="dateYear"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="dateTime"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="img-div">
+                    <a href="calendar.html"><img id="headerLogo_cal" src="assets/imgs/calendario.png"></a>
+                </div>
+            </div>
+        </header>
+        <div class="container divisions icon_wrapper_sala">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="chao">Chão</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="Cama">Cama</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="lights">Luzes</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="musica">Musica</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary" id="aircon">Ar Condicionado</button>
+                </div>
+                <div class="col-md-2">
+                    <br>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn_last">Adicionar Eletrodoméstico</button>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
