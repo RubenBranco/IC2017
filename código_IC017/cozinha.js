@@ -74,7 +74,7 @@ function main() {
             '</h1><button class="btn-primary btn-md" id="popup-close">Fechar</button>' +
             '<div class="row"><span>Estado: </span><input type="checkbox" id="state"></div>' +
             '<div class="row"><span>Acender bico</span><select class="programa"><option value="normal">Bico 1</option>' +
-            '</select><div class="row"><span>Temperatura</span><select class="tempo"><option value="média">Média</option>');
+            '</select><div class="row"><span>Temperatura</span><select class="tempo"><option value="média">Média</option></div></div></div>');
         $("#popup-close").click(function () {
             $("#popup-close").unbind('click');
             $(".pop-up").remove();
